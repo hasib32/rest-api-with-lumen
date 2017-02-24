@@ -14,3 +14,8 @@
 $app->get('/', function () use ($app) {
     return $app->version();
 });
+
+// Generate random string
+$app->get('appKey', function () {
+    return str_random('32');
+});
