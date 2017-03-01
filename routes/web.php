@@ -19,3 +19,9 @@ $app->get('/', function () use ($app) {
 $app->get('appKey', function () {
     return str_random('32');
 });
+
+$app->get('users', 'UserController@index');
+$app->post('users', 'UserController@store');
+$app->get('users/{id}', 'UserController@show');
+$app->put('users/{id}', 'UserController@update');
+$app->delete('users/{id}', 'UserController@destroy');
