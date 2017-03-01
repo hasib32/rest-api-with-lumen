@@ -4,6 +4,7 @@ namespace App\Repositories;
 
 use App\Repositories\Contracts\BaseRepository;
 use Illuminate\Database\Eloquent\Model;
+use Ramsey\Uuid\Uuid;
 
 abstract class AbstractEloquentRepository implements BaseRepository
 {
@@ -63,7 +64,7 @@ abstract class AbstractEloquentRepository implements BaseRepository
      */
     public function findOne($id)
     {
-        return $this->model->find($id);
+        return $this->findOneBy(['uid' => $id]);
     }
 
     /**
@@ -127,6 +128,9 @@ abstract class AbstractEloquentRepository implements BaseRepository
      */
     public function save(array $data)
     {
+        // generate uid
+        $data['uid'] = Uuid::uuid4();
+
         return $this->model->create($data);
     }
 
