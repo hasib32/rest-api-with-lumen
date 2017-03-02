@@ -8,6 +8,8 @@ use Illuminate\Http\Request;
 
 class UserController extends Controller
 {
+    use ResponseTrait;
+
     /**
      * Instance of UserRepository
      *
@@ -56,7 +58,7 @@ class UserController extends Controller
         $user = $this->userRepository->findOne($id);
 
         if (!$user instanceof User) {
-            return response()->json(['message' => "The user with id {$id} doesn't exist"], 404);
+            return $this->sendNotFoundResponse("The user with id {$id} doesn't exist");
         }
 
         return response()->json(['data' => $user], 200);
@@ -70,10 +72,17 @@ class UserController extends Controller
      */
     public function store(Request $request)
     {
+        // Validation
+        $validatorResponse = $this->validateRequest($request, $this->storeRequestValidationRules());
+
+        if (is_array($validatorResponse)) {
+            return $this->sendInvalidFieldResponse($validatorResponse);
+        }
+
         $user = $this->userRepository->save($request->all());
 
         if (!$user instanceof User) {
-            return response()->json(['message' => "Error occurred on creating user"], 500);
+            return response()->json(['message' => "Error occurred on creating User"], 500);
         }
 
         return response()->json(['data' => $user], 201);
@@ -88,10 +97,17 @@ class UserController extends Controller
      */
     public function update(Request $request, $id)
     {
+        // Validation
+        $validatorResponse = $this->validateRequest($request, $this->updateRequestValidationRules($request));
+
+        if (is_array($validatorResponse)) {
+            return $this->sendInvalidFieldResponse($validatorResponse);
+        }
+
         $user = $this->userRepository->findOne($id);
 
         if (!$user instanceof User) {
-            return response()->json(['message' => "The user with id {$id} doesn't exist"], 404);
+            return $this->sendNotFoundResponse("The user with id {$id} doesn't exist");
         }
 
         $inputs = $request->all();
@@ -112,11 +128,63 @@ class UserController extends Controller
         $user = $this->userRepository->findOne($id);
 
         if (!$user instanceof User) {
-            return response()->json(['message' => "The user with id {$id} doesn't exist"], 404);
+            return $this->sendNotFoundResponse("The user with id {$id} doesn't exist");
         }
 
         $this->userRepository->delete($user);
 
         return response()->json(null, 204);
+    }
+
+    /**
+     * Store Request Validation Rules
+     *
+     * @return array
+     */
+    private function storeRequestValidationRules()
+    {
+        return [
+            'email'                 => 'email|required|unique:users',
+            'firstName'             => 'required|max:100',
+            'middleName'            => 'max:50',
+            'lastName'              => 'required|max:100',
+            'username'              => 'max:50',
+            'address'               => 'max:255',
+            'zipCode'               => 'max:10',
+            'phone'                 => 'max:20',
+            'mobile'                => 'max:20',
+            'city'                  => 'max:100',
+            'state'                 => 'max:100',
+            'country'               => 'max:100',
+            'type'                  => '',
+            'password'              => 'min:5'
+        ];
+    }
+
+    /**
+     * Update Request validation Rules
+     *
+     * @param Request $request
+     * @return array
+     */
+    private function updateRequestValidationRules(Request $request)
+    {
+        $userId = $request->segment(2);
+        return [
+            'email'                 => 'email|unique:users,email,'. $userId,
+            'firstName'             => 'max:100',
+            'middleName'            => 'max:50',
+            'lastName'              => 'max:100',
+            'username'              => 'max:50',
+            'address'               => 'max:255',
+            'zipCode'               => 'max:10',
+            'phone'                 => 'max:20',
+            'mobile'                => 'max:20',
+            'city'                  => 'max:100',
+            'state'                 => 'max:100',
+            'country'               => 'max:100',
+            'type'                  => '',
+            'password'              => 'min:5'
+        ];
     }
 }
