@@ -2,6 +2,14 @@
 
 namespace App\Http\Controllers;
 
+use Illuminate\Contracts\Pagination\LengthAwarePaginator;
+use Illuminate\Database\Eloquent\Model;
+use League\Fractal\Manager;
+use League\Fractal\Pagination\IlluminatePaginatorAdapter;
+use League\Fractal\Resource\Collection;
+use League\Fractal\Resource\Item;
+use League\Fractal\TransformerAbstract;
+
 trait ResponseTrait
 {
     /**
@@ -11,6 +19,23 @@ trait ResponseTrait
      */
     protected $statusCode = 200;
 
+    /**
+     * Fractal manager instance
+     *
+     * @var Manager
+     */
+    protected $fractal;
+
+    /**
+     * Set fractal Manager instance
+     *
+     * @param Manager $fractal
+     * @return void
+     */
+    public function setFractal(Manager $fractal)
+    {
+        $this->fractal = $fractal;
+    }
 
     /**
      * Getter for statusCode
@@ -114,5 +139,55 @@ trait ResponseTrait
     public function sendEmptyDataResponse()
     {
         return response()->json(['data' => new \StdClass()]);
+    }
+
+    /**
+     * Return collection response from the application
+     *
+     * @param array|LengthAwarePaginator|\Illuminate\Database\Eloquent\Collection $collection
+     * @param \Closure|TransformerAbstract $callback
+     * @return \Illuminate\Http\JsonResponse
+     */
+    protected function respondWithCollection($collection, $callback)
+    {
+        $resource = new Collection($collection, $callback);
+
+        //set empty data pagination
+        if (empty($collection)) {
+            $collection = new \Illuminate\Pagination\LengthAwarePaginator([], 0, 10);
+            $resource = new Collection($collection, $callback);
+        }
+        $resource->setPaginator(new IlluminatePaginatorAdapter($collection));
+
+        $rootScope = $this->fractal->createData($resource);
+
+        return $this->respondWithArray($rootScope->toArray());
+    }
+
+    /**
+     * Return single item response from the application
+     *
+     * @param Model $item
+     * @param \Closure|TransformerAbstract $callback
+     * @return \Illuminate\Http\JsonResponse
+     */
+    protected function respondWithItem($item, $callback)
+    {
+        $resource = new Item($item, $callback);
+        $rootScope = $this->fractal->createData($resource);
+
+        return $this->respondWithArray($rootScope->toArray());
+    }
+
+    /**
+     * Return a json response from the application
+     *
+     * @param array $array
+     * @param array $headers
+     * @return \Illuminate\Http\JsonResponse
+     */
+    protected function respondWithArray(array $array, array $headers = [])
+    {
+        return response()->json($array, $this->statusCode, $headers);
     }
 }

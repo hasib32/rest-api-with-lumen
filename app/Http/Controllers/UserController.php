@@ -5,11 +5,10 @@ namespace App\Http\Controllers;
 use App\Models\User;
 use App\Repositories\Contracts\UserRepository;
 use Illuminate\Http\Request;
+use App\Transformers\UserTransformer;
 
 class UserController extends Controller
 {
-    use ResponseTrait;
-
     /**
      * Instance of UserRepository
      *
@@ -18,20 +17,24 @@ class UserController extends Controller
     private $userRepository;
 
     /**
-     * Assign the validatorName that will be used for validation
+     * Instanceof UserTransformer
      *
-     * @var string
+     * @var UserTransformer
      */
-    protected $validatorName = 'User';
+    private $userTransformer;
 
     /**
      * Constructor
      *
      * @param UserRepository $userRepository
+     * @param UserTransformer $userTransformer
      */
-    public function __construct(UserRepository $userRepository)
+    public function __construct(UserRepository $userRepository, UserTransformer $userTransformer)
     {
         $this->userRepository = $userRepository;
+        $this->userTransformer = $userTransformer;
+
+        parent::__construct();
     }
 
     /**
@@ -44,7 +47,7 @@ class UserController extends Controller
     {
         $users = $this->userRepository->findBy($request->all());
 
-        return response()->json(['data' => $users], 200);
+        return $this->respondWithCollection($users, $this->userTransformer);
     }
 
     /**
@@ -61,7 +64,7 @@ class UserController extends Controller
             return $this->sendNotFoundResponse("The user with id {$id} doesn't exist");
         }
 
-        return response()->json(['data' => $user], 200);
+        return $this->respondWithItem($user, $this->userTransformer);
     }
 
     /**
@@ -85,7 +88,7 @@ class UserController extends Controller
             return response()->json(['message' => "Error occurred on creating User"], 500);
         }
 
-        return response()->json(['data' => $user], 201);
+        return $this->setStatusCode(201)->respondWithItem($user, $this->userTransformer);
     }
 
     /**
@@ -114,7 +117,7 @@ class UserController extends Controller
 
         $user = $this->userRepository->update($user, $inputs);
 
-        return response()->json(['data' => $user], 200);
+        return $this->respondWithItem($user, $this->userTransformer);
     }
 
     /**
