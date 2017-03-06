@@ -5,7 +5,7 @@ A RESTful API boilerplate for Lumen micro-framework. Features included:
 - OAuth2 Authentication
 - Validation
 - Repository Pattern
-- API Response with [Fractal](http://fractal.thephpleague.com/) Transformer
+- API Response with [Fractal](http://fractal.thephpleague.com/)
 - Pagination
 - Seeding Data Using Faker
 - [CORS](https://github.com/barryvdh/laravel-cors) Support
