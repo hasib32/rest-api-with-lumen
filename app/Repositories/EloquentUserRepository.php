@@ -5,6 +5,7 @@ namespace App\Repositories;
 use App\Repositories\Contracts\UserRepository;
 use App\Models\User;
 use Illuminate\Support\Facades\Hash;
+use Illuminate\Database\Eloquent\Model;
 
 class EloquentUserRepository extends AbstractEloquentRepository implements UserRepository
 {
@@ -29,5 +30,19 @@ class EloquentUserRepository extends AbstractEloquentRepository implements UserR
         $user = parent::save($data);
 
         return $user;
+    }
+
+    /**
+     * @inheritdoc
+     */
+    public function update(Model $model, array $data)
+    {
+        if (isset($data['password'])) {
+            $data['password'] = Hash::make($data['password']);
+        }
+
+        $updatedUser = parent::update($model, $data);
+
+        return $updatedUser;
     }
 }

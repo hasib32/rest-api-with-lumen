@@ -8,7 +8,9 @@
         "php": ">=5.6.4",
         "laravel/lumen-framework": "5.4.*",
         "vlucas/phpdotenv": "~2.2",
-        "ramsey/uuid": "^3.5"
+        "ramsey/uuid": "^3.5",
+        "league/fractal": "^0.15.0",
+        "dusterio/lumen-passport": "^0.1.9"
     },
     "require-dev": {
         "fzaninotto/faker": "~1.4",
