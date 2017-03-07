@@ -1,4 +1,4 @@
-# Rest API with Lumen
+# Rest API with Lumen 5.4
 
 A RESTful API boilerplate for Lumen micro-framework. Features included:
 
