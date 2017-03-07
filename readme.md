@@ -34,8 +34,11 @@ Create ```.env``` file and copy values from ```.env.example``` file. If you want
 php artisan migrate --seed
 
 ```
+## Contributing
+Contributions, questions and comments are all welcome and encouraged. For code contributions submit a pull request.
+
 
 
 ## License
 
-  The Rest API With Lumen is open-sourced software licensed under the [MIT license](http://opensource.org/licenses/MIT)
+ [MIT license](http://opensource.org/licenses/MIT)
