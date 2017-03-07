@@ -23,7 +23,8 @@ You can use Laravel Homestead globally or per project for local development. Fol
 #### Install dependencies
 
 ```
-      composer install
+cd rest-api-with-lumen
+composer install
 ```
 #### Configure the Environment
 Both ```.env``` and ```.env.example``` files are added. If you want you can edit database name, username or password.
