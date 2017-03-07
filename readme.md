@@ -20,7 +20,7 @@ git clone git@github.com:hasib32/rest-api-with-lumen.git
 #### Laravel Homestead
 You can use Laravel Homestead globally or per project for local development. Follow the [Installation Guide.](https://laravel.com/docs/5.4/homestead#installation-and-setup)
 
-Install dependencies
+####Install dependencies
 ```
       composer install
 ```
