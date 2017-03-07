@@ -27,7 +27,7 @@ cd rest-api-with-lumen
 composer install
 ```
 #### Configure the Environment
-Both ```.env``` and ```.env.example``` files are added. If you want you can edit database name, username or password.
+Create ```.env``` file and copy values from ```.env.example``` file. If you want you can edit database name, username or password.
 
 #### Migrations and Seed the database with fake data
 ```
