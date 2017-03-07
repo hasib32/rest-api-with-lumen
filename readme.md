@@ -25,7 +25,7 @@ You can use Laravel Homestead globally or per project for local development. Fol
 ```
       composer install
 ```
-#### Configure the ```.env``` file
+#### Configure the Environment
 Both ```.env``` and ```.env.example``` files are added. If you want you can edit database name, username or password.
 
 #### Migrations and Seed the database with fake data
