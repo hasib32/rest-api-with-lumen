@@ -2,6 +2,7 @@
 
 A RESTful API boilerplate for Lumen micro-framework. Features included:
 
+- users Resource
 - OAuth2 Authentication
 - Validation
 - Repository Pattern
