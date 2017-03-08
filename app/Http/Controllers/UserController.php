@@ -78,14 +78,15 @@ class UserController extends Controller
         // Validation
         $validatorResponse = $this->validateRequest($request, $this->storeRequestValidationRules());
 
-        if (is_array($validatorResponse)) {
+        // Send failed response if validation fails
+        if ($validatorResponse !== true) {
             return $this->sendInvalidFieldResponse($validatorResponse);
         }
 
         $user = $this->userRepository->save($request->all());
 
         if (!$user instanceof User) {
-            return response()->json(['message' => "Error occurred on creating User"], 500);
+            return $this->sendCustomResponse(500, 'Error occurred on creating User');
         }
 
         return $this->setStatusCode(201)->respondWithItem($user, $this->userTransformer);
@@ -103,7 +104,8 @@ class UserController extends Controller
         // Validation
         $validatorResponse = $this->validateRequest($request, $this->updateRequestValidationRules($request));
 
-        if (is_array($validatorResponse)) {
+        // Send failed response if validation fails
+        if ($validatorResponse !== true) {
             return $this->sendInvalidFieldResponse($validatorResponse);
         }
 
