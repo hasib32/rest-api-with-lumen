@@ -12,7 +12,6 @@ A RESTful API boilerplate for Lumen micro-framework. Features included:
 - [CORS](https://github.com/barryvdh/laravel-cors) Support
 
 ## Getting Started
-### For step-by-step tutorial please visit our blog [devnootes.net](https://devnotes.net/rest-api-development-with-lumen-part-one/)
 
 First, clone the repo
 ```
@@ -40,6 +39,8 @@ If you want you can edit database name, database username and database password.
 php artisan migrate --seed
 
 ```
+## Tutorial
+To see the step-by-step tutorial how I created this boilerplate please visit our blog [devnootes.net](https://devnotes.net/rest-api-development-with-lumen-part-one/)
 ## Contributing
 Contributions, questions and comments are all welcome and encouraged. For code contributions submit a pull request.
 
