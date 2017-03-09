@@ -13,7 +13,7 @@ $factory->define(App\Models\User::class, function (Faker\Generator $faker) {
         'username'              => $faker->userName,
         'city'                  => $faker->city,
         'state'                 => $faker->state,
-        'country'               => 'USA',
+        'country'               => $faker->country,
         'phone'                 => $faker->phoneNumber,
         'mobile'                => $faker->phoneNumber,
         'type'                  => 'USER',
