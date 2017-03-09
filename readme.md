@@ -12,6 +12,7 @@ A RESTful API boilerplate for Lumen micro-framework. Features included:
 - [CORS](https://github.com/barryvdh/laravel-cors) Support
 
 ## Getting Started
+For step-by-step tutorial please visit our blog [devnootes.net](https://devnotes.net/rest-api-development-with-lumen-part-one/)
 
 First, clone the repo
 ```
