@@ -38,10 +38,22 @@ If you want you can edit database name, database username and database password.
 ```
 php artisan migrate --seed
 ```
+### API Routes
+
+| HTTP Method	| Path | Action | Desciption  |
+| ----- | ----- | ----- | ------------- |
+| GET      | /users | index | Get all users
+| POST     | /user | store | Create an user
+| GET      | /users/{user_id} | show |  Fetch an user by id
+| PUT      | /users/{user_id} | update | Update an user by id
+| DELETE      | /users/{user_id} | destroy | Delete an user by id
+
+
 ### Oauth2 Routes
 Visit [dusterio/lumen-passport](https://github.com/dusterio/lumen-passport/blob/master/README.md#installed-routes) to see all the available ```Oauth2``` routes.
 
 You can test the API using [Postman.](https://www.getpostman.com/) Here is an example of creating access_token.
+
 ![access_token creation](/public/images/accessTokenCreation.png?raw=true "access_token creation example")
 
 ## Tutorial
