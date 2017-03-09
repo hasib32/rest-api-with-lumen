@@ -37,8 +37,12 @@ If you want you can edit database name, database username and database password.
 #### Migrations and Seed the database with fake data
 ```
 php artisan migrate --seed
-
 ```
+### Oauth2 Routes
+Visit [dusterio/lumen-passport](https://github.com/dusterio/lumen-passport/blob/master/README.md#installed-routes) to see all the available Oauth2 routes.
+You can test the API using [Postman.](https://www.getpostman.com/) Here is an example of creating access_token.
+![access_token creation](/public/images/accessTokenCreation.png?raw=true "access_token creation example")
+
 ## Tutorial
 To see the step-by-step tutorial how I created this boilerplate please visit our blog [devnootes.net](https://devnotes.net/rest-api-development-with-lumen-part-one/)
 ## Contributing
