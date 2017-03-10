@@ -14,6 +14,10 @@ class User extends Model implements AuthenticatableContract, AuthorizableContrac
 {
     use Authenticatable, Authorizable, SoftDeletes, HasApiTokens;
 
+    const SUPER_ADMIN = 'SUPER_ADMIN_USER';
+    const GENERAL_ADMIN = 'GENERAL_ADMIN_USER';
+    const BASIC = 'BASIC_USER';
+
     /**
      * The database table used by the model.
      *
@@ -41,7 +45,7 @@ class User extends Model implements AuthenticatableContract, AuthorizableContrac
         'country',
         'phone',
         'mobile',
-        'type',
+        'role',
         'isActive'
     ];
 
@@ -52,5 +56,14 @@ class User extends Model implements AuthenticatableContract, AuthorizableContrac
      */
     protected $hidden = [
         'password',
+    ];
+
+    /**
+     * default attributes value
+     *
+     * @var array
+     */
+    protected $attributes = [
+        'role'  => self::BASIC
     ];
 }

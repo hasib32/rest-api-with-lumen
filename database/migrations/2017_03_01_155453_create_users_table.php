@@ -29,7 +29,7 @@ class CreateUsersTable extends Migration
             $table->string('city', '100')->nullable();
             $table->string('state', '100')->nullable();
             $table->string('country', '100')->nullable();
-            $table->string('type')->nullable();
+            $table->string('role');
             $table->tinyInteger('isActive');
             $table->timestamps();
             $table->softDeletes();

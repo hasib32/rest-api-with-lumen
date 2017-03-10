@@ -20,6 +20,9 @@ $app->get('appKey', function () {
     return str_random('32');
 });
 
+// route for creating access_token
+$app->post('accessToken', 'AccessTokenController@createAccessToken');
+
 $app->group(['middleware' => 'auth:api'], function () use ($app) {
     $app->post('users', 'UserController@store');
     $app->get('users', 'UserController@index');

@@ -6,6 +6,7 @@ use App\Models\User;
 use Laravel\Passport\Passport;
 use Illuminate\Support\Facades\Gate;
 use Illuminate\Support\ServiceProvider;
+use App\Policies\UserPolicy;
 
 class AuthServiceProvider extends ServiceProvider
 {
@@ -41,5 +42,8 @@ class AuthServiceProvider extends ServiceProvider
             'admin' => 'Admin user scope',
             'basic' => 'Basic user scope',
         ]);
+
+        //Register all policies here
+        Gate::policy(User::class, UserPolicy::class);
     }
 }

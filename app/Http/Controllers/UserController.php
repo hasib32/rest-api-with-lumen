@@ -64,6 +64,9 @@ class UserController extends Controller
             return $this->sendNotFoundResponse("The user with id {$id} doesn't exist");
         }
 
+        // Authorization
+        $this->authorize('show', $user);
+
         return $this->respondWithItem($user, $this->userTransformer);
     }
 
@@ -115,9 +118,11 @@ class UserController extends Controller
             return $this->sendNotFoundResponse("The user with id {$id} doesn't exist");
         }
 
-        $inputs = $request->all();
+        // Authorization
+        $this->authorize('update', $user);
 
-        $user = $this->userRepository->update($user, $inputs);
+
+        $user = $this->userRepository->update($user, $request->all());
 
         return $this->respondWithItem($user, $this->userTransformer);
     }
@@ -135,6 +140,9 @@ class UserController extends Controller
         if (!$user instanceof User) {
             return $this->sendNotFoundResponse("The user with id {$id} doesn't exist");
         }
+
+        // Authorization
+        $this->authorize('destroy', $user);
 
         $this->userRepository->delete($user);
 
