@@ -4,6 +4,7 @@ A RESTful API boilerplate for Lumen micro-framework. Features included:
 
 - users Resource
 - OAuth2 Authentication
+- Authorization
 - Validation
 - Repository Pattern
 - API Response with [Fractal](http://fractal.thephpleague.com/)
