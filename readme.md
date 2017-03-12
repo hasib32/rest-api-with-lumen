@@ -43,6 +43,7 @@ mysql -uhomestead -psecret
 
 mysql> CREATE DATABASE restapi;
 
+# Finally, run the Artisan migrate command
 php artisan migrate --seed
 ```
 ### API Routes
