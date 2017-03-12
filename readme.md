@@ -40,7 +40,6 @@ If you want you can edit database name, database username and database password.
 First, we need to create a database. For homestead user,
 ```
 mysql -uhomestead -psecret
-
 mysql> CREATE DATABASE restapi;
 
 # Finally, run the Artisan migrate command
