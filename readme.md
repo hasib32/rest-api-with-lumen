@@ -39,6 +39,7 @@ If you want you can edit database name, database username and database password.
 
 First, we need to create a database. For homestead user,
 ```
+# Login using default homestead username and password
 mysql -uhomestead -psecret
 mysql> CREATE DATABASE restapi;
 
