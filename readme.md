@@ -41,7 +41,7 @@ First, we need to create a database. For homestead user,
 ```
 mysql -uhomestead -psecret
 
-CREATE DATABASE restapi;
+mysql> CREATE DATABASE restapi;
 
 php artisan migrate --seed
 ```
