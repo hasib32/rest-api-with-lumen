@@ -36,7 +36,13 @@ cat .env.example > .env
 If you want you can edit database name, database username and database password.
 
 #### Migrations and Seed the database with fake data
+
+First, we need to create a database. For homestead user,
 ```
+mysql -uhomestead -psecret
+
+CREATE DATABASE restapi;
+
 php artisan migrate --seed
 ```
 ### API Routes
