@@ -16,7 +16,7 @@ $factory->define(App\Models\User::class, function (Faker\Generator $faker) {
         'country'               => $faker->country,
         'phone'                 => $faker->phoneNumber,
         'mobile'                => $faker->phoneNumber,
-        'type'                  => 'USER',
+        'role'                  => \App\Models\User::BASIC_ROLE,
         'isActive'              => rand(0,1)
     ];
 });

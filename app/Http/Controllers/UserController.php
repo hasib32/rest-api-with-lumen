@@ -64,6 +64,9 @@ class UserController extends Controller
             return $this->sendNotFoundResponse("The user with id {$id} doesn't exist");
         }
 
+        // Authorization
+        $this->authorize('show', $user);
+
         return $this->respondWithItem($user, $this->userTransformer);
     }
 
@@ -76,7 +79,7 @@ class UserController extends Controller
     public function store(Request $request)
     {
         // Validation
-        $validatorResponse = $this->validateRequest($request, $this->storeRequestValidationRules());
+        $validatorResponse = $this->validateRequest($request, $this->storeRequestValidationRules($request));
 
         // Send failed response if validation fails
         if ($validatorResponse !== true) {
@@ -115,9 +118,11 @@ class UserController extends Controller
             return $this->sendNotFoundResponse("The user with id {$id} doesn't exist");
         }
 
-        $inputs = $request->all();
+        // Authorization
+        $this->authorize('update', $user);
 
-        $user = $this->userRepository->update($user, $inputs);
+
+        $user = $this->userRepository->update($user, $request->all());
 
         return $this->respondWithItem($user, $this->userTransformer);
     }
@@ -136,6 +141,9 @@ class UserController extends Controller
             return $this->sendNotFoundResponse("The user with id {$id} doesn't exist");
         }
 
+        // Authorization
+        $this->authorize('destroy', $user);
+
         $this->userRepository->delete($user);
 
         return response()->json(null, 204);
@@ -144,11 +152,12 @@ class UserController extends Controller
     /**
      * Store Request Validation Rules
      *
+     * @param Request $request
      * @return array
      */
-    private function storeRequestValidationRules()
+    private function storeRequestValidationRules(Request $request)
     {
-        return [
+        $rules = [
             'email'                 => 'email|required|unique:users',
             'firstName'             => 'required|max:100',
             'middleName'            => 'max:50',
@@ -161,9 +170,21 @@ class UserController extends Controller
             'city'                  => 'max:100',
             'state'                 => 'max:100',
             'country'               => 'max:100',
-            'type'                  => '',
             'password'              => 'min:5'
         ];
+
+        $requestUser = $request->user();
+
+        // Only admin user can set role.
+        if ($requestUser instanceof User && $requestUser->role === User::ADMIN_ROLE) {
+            $rules['role'] = 'in:BASIC_USER,ADMIN_USER';
+        } else {
+            $request->request->add([
+                'role'  => User::BASIC_ROLE
+            ]);
+        }
+
+        return $rules;
     }
 
     /**
@@ -175,7 +196,7 @@ class UserController extends Controller
     private function updateRequestValidationRules(Request $request)
     {
         $userId = $request->segment(2);
-        return [
+        $rules = [
             'email'                 => 'email|unique:users,email,'. $userId,
             'firstName'             => 'max:100',
             'middleName'            => 'max:50',
@@ -188,8 +209,20 @@ class UserController extends Controller
             'city'                  => 'max:100',
             'state'                 => 'max:100',
             'country'               => 'max:100',
-            'type'                  => '',
             'password'              => 'min:5'
         ];
+
+        $requestUser = $request->user();
+
+        // Only admin user can update role.
+        if ($requestUser instanceof User && $requestUser->role === User::ADMIN_ROLE) {
+            $rules['role'] = 'in:BASIC_USER,ADMIN_USER';
+        } else {
+            $request->request->add([
+                'role'  => User::BASIC_ROLE
+            ]);
+        }
+
+        return $rules;
     }
 }

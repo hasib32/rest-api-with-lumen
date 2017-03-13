@@ -14,6 +14,9 @@ class User extends Model implements AuthenticatableContract, AuthorizableContrac
 {
     use Authenticatable, Authorizable, SoftDeletes, HasApiTokens;
 
+    const ADMIN_ROLE = 'ADMIN_USER';
+    const BASIC_ROLE = 'BASIC_USER';
+
     /**
      * The database table used by the model.
      *
@@ -41,7 +44,7 @@ class User extends Model implements AuthenticatableContract, AuthorizableContrac
         'country',
         'phone',
         'mobile',
-        'type',
+        'role',
         'isActive'
     ];
 
