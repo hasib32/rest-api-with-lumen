@@ -46,7 +46,7 @@ class AccessTokenController extends Controller
 
         if ($user instanceof User) {
             // user with basic role can only request for basic scope
-            if ($user->role === User::BASIC) {
+            if ($user->role === User::BASIC_ROLE) {
                 $inputs['scope'] = 'basic';
             }
         } else {

@@ -23,7 +23,7 @@ class UserTransformer extends TransformerAbstract
             'country'               => $user->country,
             'phone'                 => $user->phone,
             'mobile'                => $user->mobile,
-            'type'                  => $user->type,
+            'role'                  => $user->role,
             'createdAt'             => (string) $user->created_at,
             'updatedAt'             => (string) $user->updated_at
         ];
