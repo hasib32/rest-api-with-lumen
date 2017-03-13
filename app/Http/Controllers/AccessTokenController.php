@@ -54,9 +54,9 @@ class AccessTokenController extends Controller
             $inputs['scope'] = 'basic';
         }
 
-        // forward the request to the oauth token request endpoint
         $tokenRequest = $request->create('/oauth/token', 'post', $inputs);
 
+        // forward the request to the oauth token request endpoint
         return app()->dispatch($tokenRequest);
     }
 }

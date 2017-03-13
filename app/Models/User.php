@@ -56,13 +56,4 @@ class User extends Model implements AuthenticatableContract, AuthorizableContrac
     protected $hidden = [
         'password',
     ];
-
-    /**
-     * default attributes value
-     *
-     * @var array
-     */
-    protected $attributes = [
-        'role'  => self::BASIC_ROLE
-    ];
 }
