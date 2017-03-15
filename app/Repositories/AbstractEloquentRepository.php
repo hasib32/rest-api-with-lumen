@@ -173,4 +173,15 @@ abstract class AbstractEloquentRepository implements BaseRepository
     {
         return $model->delete();
     }
+
+    /**
+     * get loggedIn user
+     *
+     * @return User
+     */
+    protected function getLoggedInUser()
+    {
+        return \Auth::user();
+    }
+
 }
