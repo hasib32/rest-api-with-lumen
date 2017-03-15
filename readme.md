@@ -43,9 +43,14 @@ First, we need to create a database. For homestead user,
 mysql -uhomestead -psecret
 mysql> CREATE DATABASE restapi;
 
-# Finally, run the Artisan migrate command
+# Run the Artisan migrate command with seed
 php artisan migrate --seed
+
+# Create "personal access" and "password grant" clients which will be used to generate access tokens. 
+# You can find those clients in "oauth_client" table
+php artisan passport:install
 ```
+#
 ### API Routes
 
 | HTTP Method	| Path | Action | Desciption  |
