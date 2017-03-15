@@ -47,8 +47,8 @@ mysql> CREATE DATABASE restapi;
 php artisan migrate --seed
 
 # Create "personal access" and "password grant" clients which will be used to generate access tokens. 
-# You can find those clients in "oauth_client" table
 php artisan passport:install
+# You can find those clients in "oauth_client" table
 ```
 #
 ### API Routes
