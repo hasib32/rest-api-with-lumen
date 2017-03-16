@@ -5,6 +5,7 @@ namespace App\Repositories;
 use App\Repositories\Contracts\BaseRepository;
 use Illuminate\Database\Eloquent\Model;
 use Ramsey\Uuid\Uuid;
+use App\Models\User;
 
 abstract class AbstractEloquentRepository implements BaseRepository
 {
@@ -22,10 +23,20 @@ abstract class AbstractEloquentRepository implements BaseRepository
      */
     protected $model;
 
+    /**
+     * get logged in user
+     *
+     * @var User $loggedInUser
+     */
+    protected $loggedInUser;
 
+    /**
+     * Constructor
+     */
     public function __construct()
     {
         $this->setModel();
+        $this->loggedInUser = $this->getLoggedInUser();
     }
 
     /**
@@ -172,5 +183,21 @@ abstract class AbstractEloquentRepository implements BaseRepository
     public function delete(Model $model)
     {
         return $model->delete();
+    }
+
+    /**
+     * get loggedIn user
+     *
+     * @return User
+     */
+    protected function getLoggedInUser()
+    {
+        $user = \Auth::user();
+
+        if ($user instanceof User) {
+            return $user;
+        } else {
+            return new User();
+        }
     }
 }

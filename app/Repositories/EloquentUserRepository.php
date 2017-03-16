@@ -6,6 +6,7 @@ use App\Repositories\Contracts\UserRepository;
 use App\Models\User;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Database\Eloquent\Model;
+use App\Events\UserEvents\UserCreatedEvent;
 
 class EloquentUserRepository extends AbstractEloquentRepository implements UserRepository
 {
@@ -29,6 +30,9 @@ class EloquentUserRepository extends AbstractEloquentRepository implements UserR
 
         $user = parent::save($data);
 
+        // fire user created event
+        \Event::fire(new UserCreatedEvent($user));
+
         return $user;
     }
 
@@ -44,5 +48,30 @@ class EloquentUserRepository extends AbstractEloquentRepository implements UserR
         $updatedUser = parent::update($model, $data);
 
         return $updatedUser;
+    }
+
+    /**
+     * @inheritdoc
+     */
+    public function findBy(array $searchCriteria = [])
+    {
+        // Only admin user can see all users
+        if ($this->loggedInUser->role !== User::ADMIN_ROLE) {
+            $searchCriteria['id'] = $this->loggedInUser->id;
+        }
+
+        return parent::findBy($searchCriteria);
+    }
+
+    /**
+     * @inheritdoc
+     */
+    public function findOne($id)
+    {
+        if ($id === 'me') {
+            return $this->getLoggedInUser();
+        }
+
+        return parent::findOne($id);
     }
 }

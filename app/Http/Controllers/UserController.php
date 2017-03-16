@@ -175,13 +175,11 @@ class UserController extends Controller
 
         $requestUser = $request->user();
 
-        // Only admin user can set role.
+        // Only admin user can set admin role.
         if ($requestUser instanceof User && $requestUser->role === User::ADMIN_ROLE) {
             $rules['role'] = 'in:BASIC_USER,ADMIN_USER';
         } else {
-            $request->request->add([
-                'role'  => User::BASIC_ROLE
-            ]);
+            $rules['role'] = 'in:BASIC_USER';
         }
 
         return $rules;
@@ -214,13 +212,11 @@ class UserController extends Controller
 
         $requestUser = $request->user();
 
-        // Only admin user can update role.
+        // Only admin user can update admin role.
         if ($requestUser instanceof User && $requestUser->role === User::ADMIN_ROLE) {
             $rules['role'] = 'in:BASIC_USER,ADMIN_USER';
         } else {
-            $request->request->add([
-                'role'  => User::BASIC_ROLE
-            ]);
+            $rules['role'] = 'in:BASIC_USER';
         }
 
         return $rules;
