@@ -77,7 +77,18 @@ http://stackoverflow.com/questions/39436509/laravel-passport-scopes
 ![access_token creation](/public/images/accessTokenCreation.png?raw=true "access_token creation example")
 
 ## Creating a New Resource
-creating a new resource is very easy and straight-forward.
+Creating a new resource is very easy and straight-forward. Follow these simple steps to create a new resource.
+
+### Create Route
+Let's create a new route name ```messages```. Edit the ```routes/web.php``` file.
+
+```
+    $app->post('messages', 'MessageController@store');
+    $app->get('messages', 'MessageController@index');
+    $app->get('messages/{id}', 'MessageController@show');
+    $app->put('messages/{id}', 'MessageController@update');
+    $app->delete('messages/{id}', 'MessageController@destroy');
+```
 
 ## Tutorial
 To see the step-by-step tutorial how I created this boilerplate please visit our blog [devnootes.net](https://devnotes.net/rest-api-development-with-lumen-part-one/)
