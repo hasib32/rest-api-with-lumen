@@ -192,6 +192,31 @@ Next, update ```RepositoriesServiceProvider``` to bind the implementation
         ];
     }
 ```
+### Create Transformer
+Create a new Transformer name ```MessageTransformer``` inside ```app/Transformers``` direcotry.
+
+```
+<?php
+
+namespace App\Transformers;
+
+use App\Models\Message;
+use League\Fractal\TransformerAbstract;
+
+class MessageTransformer extends TransformerAbstract
+{
+    public function transform(Message $message)
+    {
+        return [
+            'id'        => $message->uid,
+            'subject'   => $message->subject,
+            'message'   => $message->message,
+            'createdAt' => (string) $message->created_at,
+            'updatedAt' => (string) $message->updated_at
+        ];
+    }
+}
+```
 
 ## Tutorial
 To see the step-by-step tutorial how I created this boilerplate please visit our blog [devnootes.net](https://devnotes.net/rest-api-development-with-lumen-part-one/)
