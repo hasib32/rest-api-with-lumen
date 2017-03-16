@@ -89,6 +89,42 @@ Let's create a new route name ```messages```. Edit the ```routes/web.php``` file
     $app->put('messages/{id}', 'MessageController@update');
     $app->delete('messages/{id}', 'MessageController@destroy');
 ```
+### Create Model and migration for the table
+Let's create ```Message``` Model inside ```App/Models``` directory and create migration using Lumen Artisan command.
+
+#### Message Model
+```
+<?php
+
+namespace App\Models;
+
+use Illuminate\Database\Eloquent\Model;
+
+class Message extends Model
+{
+    /**
+     * The database table used by the model.
+     *
+     * @var string
+     */
+    protected $table = 'users';
+
+    /**
+     * The attributes that are mass assignable.
+     *
+     * @var array
+     */
+    protected $fillable = [
+        'uid',
+        'subject',
+        'message'
+    ];
+}
+```
+#### Create migration for messages table
+```
+php artisan make:migration create_messages_table --create=messages
+```
 
 ## Tutorial
 To see the step-by-step tutorial how I created this boilerplate please visit our blog [devnootes.net](https://devnotes.net/rest-api-development-with-lumen-part-one/)
