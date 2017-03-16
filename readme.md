@@ -70,7 +70,7 @@ Note: ```users/me``` route is for getting current authenticated user.
 Visit [dusterio/lumen-passport](https://github.com/dusterio/lumen-passport/blob/master/README.md#installed-routes) to see all the available ```Oauth2``` routes.
 
 ### Creating access_token
-Since Laravel Passport doesn't restrict any user creating any valid scope. I had to create a route and controller for that. So, for creating access_token we have to use the ```accessToken``` route. Here is an example of creating access_token for grant_type password with [Postman.](https://www.getpostman.com/)
+Since Laravel Passport doesn't restrict any user creating any valid scope. I had to create a route and controller to restrict user creating access token only with permitted scopes. For creating access_token we have to use the ```accessToken``` route. Here is an example of creating access_token for grant_type password with [Postman.](https://www.getpostman.com/)
 
 http://stackoverflow.com/questions/39436509/laravel-passport-scopes
 
