@@ -107,7 +107,7 @@ class Message extends Model
      *
      * @var string
      */
-    protected $table = 'users';
+    protected $table = 'messages';
 
     /**
      * The attributes that are mass assignable.
@@ -143,6 +143,40 @@ class CreateMessagesTable extends Migration
 }
 ```
 For more info visit Laravel [Migration](https://laravel.com/docs/5.4/migrations) page.
+
+### Create Repository
+Create ```MessageRepository``` and implementation of the repository name ```EloquentMessageRepository```.
+
+MessageRepository
+```
+<?php
+
+namespace App\Repositories\Contracts;
+
+interface MessageRepository extends BaseRepository
+{
+}
+```
+
+EloquentMessageRepository
+```
+<?php
+
+namespace App\Repositories;
+
+use App\Models\Message;
+use App\Repositories\Contracts\MessageRepository;
+
+class EloquentMessageRepository extends AbstractEloquentRepository implements MessageRepository
+{
+    /**
+     * Model name
+     *
+     * @var string
+     */
+    protected $modelName = Message::class;
+}
+```
 
 ## Tutorial
 To see the step-by-step tutorial how I created this boilerplate please visit our blog [devnootes.net](https://devnotes.net/rest-api-development-with-lumen-part-one/)
