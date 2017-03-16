@@ -125,6 +125,23 @@ class Message extends Model
 ```
 php artisan make:migration create_messages_table --create=messages
 ```
+Migration file
+
+```
+class CreateMessagesTable extends Migration
+{
+    public function up()
+    {
+        Schema::create('messages', function (Blueprint $table) {
+            $table->increments('id');
+            $table->string('uid', 36)->unique();
+            $table->string('subject')->nullable();
+            $table->longText('message');
+            $table->timestamps();
+        });
+    }
+}
+```
 
 ## Tutorial
 To see the step-by-step tutorial how I created this boilerplate please visit our blog [devnootes.net](https://devnotes.net/rest-api-development-with-lumen-part-one/)
