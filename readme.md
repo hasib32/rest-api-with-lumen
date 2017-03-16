@@ -142,6 +142,7 @@ class CreateMessagesTable extends Migration
     }
 }
 ```
+For more info visit Laravel [Migration](https://laravel.com/docs/5.4/migrations) page.
 
 ## Tutorial
 To see the step-by-step tutorial how I created this boilerplate please visit our blog [devnootes.net](https://devnotes.net/rest-api-development-with-lumen-part-one/)
