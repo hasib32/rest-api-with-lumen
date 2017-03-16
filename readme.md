@@ -182,14 +182,12 @@ Next, update ```RepositoriesServiceProvider``` to bind the implementation
 ```
     public function register()
     {
-        $this->app->bind(UserRepository::class, EloquentUserRepository::class);
         $this->app->bind(MessageRepository::class, EloquentMessageRepository::class);
     }
     
    public function provides()
     {
         return [
-            UserRepository::class,
             MessageRepository::class,
         ];
     }
