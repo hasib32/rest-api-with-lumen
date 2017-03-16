@@ -76,6 +76,9 @@ http://stackoverflow.com/questions/39436509/laravel-passport-scopes
 
 ![access_token creation](/public/images/accessTokenCreation.png?raw=true "access_token creation example")
 
+## Creating a New Resource
+creating a new resource is very easy and straight-forward.
+
 ## Tutorial
 To see the step-by-step tutorial how I created this boilerplate please visit our blog [devnootes.net](https://devnotes.net/rest-api-development-with-lumen-part-one/)
 ## Contributing
