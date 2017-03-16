@@ -1,4 +1,4 @@
-<?php //app/Transformers/UserTransformer.php
+<?php
 
 namespace App\Transformers;
 
@@ -10,7 +10,7 @@ class UserTransformer extends TransformerAbstract
     public function transform(User $user)
     {
         $formattedUser = [
-            'uid'                   => $user->uid,
+            'id'                    => $user->uid,
             'firstName'             => $user->firstName,
             'lastName'              => $user->lastName,
             'middleName'            => $user->middleName,
