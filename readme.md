@@ -178,6 +178,23 @@ class EloquentMessageRepository extends AbstractEloquentRepository implements Me
 }
 ```
 
+Next, update ```RepositoriesServiceProvider``` to bind the implementation
+```
+    public function register()
+    {
+        $this->app->bind(UserRepository::class, EloquentUserRepository::class);
+        $this->app->bind(MessageRepository::class, EloquentMessageRepository::class);
+    }
+    
+   public function provides()
+    {
+        return [
+            UserRepository::class,
+            MessageRepository::class,
+        ];
+    }
+```
+
 ## Tutorial
 To see the step-by-step tutorial how I created this boilerplate please visit our blog [devnootes.net](https://devnotes.net/rest-api-development-with-lumen-part-one/)
 ## Contributing
