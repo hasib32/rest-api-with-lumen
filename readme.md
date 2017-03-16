@@ -116,6 +116,7 @@ class Message extends Model
      */
     protected $fillable = [
         'uid',
+        'userId',
         'subject',
         'message'
     ];
@@ -135,9 +136,16 @@ class CreateMessagesTable extends Migration
         Schema::create('messages', function (Blueprint $table) {
             $table->increments('id');
             $table->string('uid', 36)->unique();
+            $table->integer('userId')->unsigned();
             $table->string('subject')->nullable();
             $table->longText('message');
             $table->timestamps();
+
+            $table->foreign('userId')
+                ->references('id')->on('users')
+                ->onDelete('cascade')
+                ->onUpdate('cascade');
+ 
         });
     }
 }
@@ -209,6 +217,7 @@ class MessageTransformer extends TransformerAbstract
     {
         return [
             'id'        => $message->uid,
+            'userId'    => $message->userId,
             'subject'   => $message->subject,
             'message'   => $message->message,
             'createdAt' => (string) $message->created_at,
@@ -217,6 +226,9 @@ class MessageTransformer extends TransformerAbstract
     }
 }
 ```
+
+### Create Policy
+For authorization we need to create policy that way basic user can't show or edit other user messages. First, create ```
 
 ## Tutorial
 To see the step-by-step tutorial how I created this boilerplate please visit our blog [devnootes.net](https://devnotes.net/rest-api-development-with-lumen-part-one/)
