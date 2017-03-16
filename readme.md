@@ -52,7 +52,7 @@ php artisan migrate --seed
 php artisan passport:install
 # You can find those clients in "oauth_client" table
 ```
-#
+
 ### API Routes
 
 | HTTP Method	| Path | Action | Desciption  |
