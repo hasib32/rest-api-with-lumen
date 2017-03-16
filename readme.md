@@ -79,7 +79,7 @@ http://stackoverflow.com/questions/39436509/laravel-passport-scopes
 ## Creating a New Resource
 Creating a new resource is very easy and straight-forward. Follow these simple steps to create a new resource.
 
-### Create Route
+### Step1: Create Route
 Let's create a new route name ```messages```. Edit the ```routes/web.php``` file.
 
 ```
@@ -89,10 +89,11 @@ Let's create a new route name ```messages```. Edit the ```routes/web.php``` file
     $app->put('messages/{id}', 'MessageController@update');
     $app->delete('messages/{id}', 'MessageController@destroy');
 ```
-### Create Model and migration for the table
+### Step2: Create Model and Migration for the Table
 Let's create ```Message``` Model inside ```App/Models``` directory and create migration using Lumen Artisan command.
 
-#### Message Model
+**Message Model**
+
 ```
 <?php
 
@@ -122,11 +123,11 @@ class Message extends Model
     ];
 }
 ```
-#### Create migration for messages table
+**Create migration for messages table**
 ```
 php artisan make:migration create_messages_table --create=messages
 ```
-Migration file
+**Migration file**
 
 ```
 class CreateMessagesTable extends Migration
@@ -152,7 +153,7 @@ class CreateMessagesTable extends Migration
 ```
 For more info visit Laravel [Migration](https://laravel.com/docs/5.4/migrations) page.
 
-### Create Repository
+### Step3: Create Repository
 Create ```MessageRepository``` and implementation of the repository name ```EloquentMessageRepository```.
 
 MessageRepository
@@ -166,7 +167,7 @@ interface MessageRepository extends BaseRepository
 }
 ```
 
-EloquentMessageRepository
+**EloquentMessageRepository**
 ```
 <?php
 
@@ -200,7 +201,7 @@ Next, update ```RepositoriesServiceProvider``` to bind the implementation
         ];
     }
 ```
-### Create Transformer
+### Step4: Create Transformer
 Create a new Transformer name ```MessageTransformer``` inside ```app/Transformers``` direcotry.
 
 ```
@@ -227,7 +228,7 @@ class MessageTransformer extends TransformerAbstract
 }
 ```
 
-### Create Policy
+### Step5: Create Policy
 For authorization we need to create policy that way basic user can't show or edit other user messages.
 
 MessagePolicy
