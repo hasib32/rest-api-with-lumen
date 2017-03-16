@@ -1,4 +1,4 @@
-<?php //app/Repositories/EloquentUserRepository.php
+<?php
 
 namespace App\Repositories;
 
