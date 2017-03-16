@@ -300,7 +300,7 @@ Next, update ```AuthServiceProvider``` to use the policy.
  
  ### Last Step: Create Controller
  
- Finally, let's create the ```MessageController```. Here we're using **MessageRepository, MessageTransformer and MessagePolicy**
+ Finally, let's create the ```MessageController```. Here we're using **MessageRepository, MessageTransformer and MessagePolicy**.
  ```
  <?php
 
