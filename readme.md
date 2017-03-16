@@ -63,11 +63,16 @@ php artisan passport:install
 | PUT      | /users/{user_id} | update | Update an user by id
 | DELETE      | /users/{user_id} | destroy | Delete an user by id
 
+Note: ```users/me``` route is for getting current authenticated user.
+
 
 ### Oauth2 Routes
 Visit [dusterio/lumen-passport](https://github.com/dusterio/lumen-passport/blob/master/README.md#installed-routes) to see all the available ```Oauth2``` routes.
 
-You can test the API using [Postman.](https://www.getpostman.com/) Here is an example of creating access_token.
+### Creating access_token
+Since Laravel Passport doesn't restrict any user creating any valid scope. I had to create a route and controller for that. So, for creating access_token we have to use the accessToken route. Here is an example of creating access_token for grant_type password with [Postman.](https://www.getpostman.com/)
+
+http://stackoverflow.com/questions/39436509/laravel-passport-scopes
 
 ![access_token creation](/public/images/accessTokenCreation.png?raw=true "access_token creation example")
 
