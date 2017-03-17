@@ -6,7 +6,7 @@ A RESTful API boilerplate for Lumen micro-framework. Features included:
 - OAuth2 Authentication using Laravel Passport
 - Scope based Authorization
 - Validation
-- Repository Pattern
+- Repository [Pattern](https://msdn.microsoft.com/en-us/library/ff649690.aspx)
 - API Response with [Fractal](http://fractal.thephpleague.com/)
 - Pagination
 - Seeding Database With Model Factory
@@ -89,6 +89,8 @@ Create a new route name ```messages```. Edit the ```routes/web.php``` file.
     $app->put('messages/{id}', 'MessageController@update');
     $app->delete('messages/{id}', 'MessageController@destroy');
 ```
+For more info about route please visit Lumen [documentation](https://lumen.laravel.com/docs/5.4/routing)
+
 ### Step2: Create Model and Migration for the Table
 Create ```Message``` Model inside ```App/Models``` directory and create migration using Lumen Artisan command.
 
@@ -201,7 +203,11 @@ Next, update ```RepositoriesServiceProvider``` to bind the implementation
         ];
     }
 ```
-### Step4: Create Transformer
+Visit Lumen documentation for more info about [Service Provider](https://lumen.laravel.com/docs/5.4/providers)
+
+### Step4: Create Fractal Transformer
+Fractal provides a presentation and transformation layer for complex data output, the like found in RESTful APIs, and works really well with JSON. Think of this as a view layer for your JSON/YAML/etc.
+
 Create a new Transformer name ```MessageTransformer``` inside ```app/Transformers``` direcotry.
 
 ```
@@ -297,6 +303,7 @@ Next, update ```AuthServiceProvider``` to use the policy.
 ```
  Gate::policy(Message::class, MessagePolicy::class);
  ```
+ Vist Lumen Authorization Page for more info about [Policy](https://lumen.laravel.com/docs/5.4/authorization)
  
  ### Last Step: Create Controller
  
@@ -483,6 +490,7 @@ class MessageController extends Controller
     }
 }
 ```
+Visit Lumen (Controller)[https://lumen.laravel.com/docs/5.4/controllers] page for more info about Controller.
 
 ## Tutorial
 To see the step-by-step tutorial how I created this boilerplate please visit our blog [devnootes.net](https://devnotes.net/rest-api-development-with-lumen-part-one/)
