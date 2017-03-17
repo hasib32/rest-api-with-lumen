@@ -4,4 +4,4 @@ Homestead.yaml
 /.vagrant/
 /vendor/
 /.idea/
-/storage/
+/storage/*.key
