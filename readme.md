@@ -125,6 +125,8 @@ class Message extends Model
     ];
 }
 ```
+
+Visit Laravel [Eloquent](https://laravel.com/docs/5.4/eloquent) Page for more info about Model
 **Create migration for messages table**
 ```
 php artisan make:migration create_messages_table --create=messages
