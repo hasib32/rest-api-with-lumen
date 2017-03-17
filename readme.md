@@ -233,7 +233,7 @@ class MessageTransformer extends TransformerAbstract
     }
 }
 ```
-Visit [Fracl](http://fractal.thephpleague.com/) official page for more information.
+Visit [Fractal](http://fractal.thephpleague.com/) official page for more information.
 
 ### Step5: Create Policy
 For authorization we need to create policy that way basic user can't show or edit other user messages.
