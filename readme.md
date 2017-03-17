@@ -89,7 +89,7 @@ Create a new route name ```messages```. Edit the ```routes/web.php``` file.
     $app->put('messages/{id}', 'MessageController@update');
     $app->delete('messages/{id}', 'MessageController@destroy');
 ```
-For more info about route please visit Lumen [documentation](https://lumen.laravel.com/docs/5.4/routing)
+For more info please visit Lumen [Routing](https://lumen.laravel.com/docs/5.4/routing) page
 
 ### Step2: Create Model and Migration for the Table
 Create ```Message``` Model inside ```App/Models``` directory and create migration using Lumen Artisan command.
