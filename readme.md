@@ -303,7 +303,7 @@ Next, update ```AuthServiceProvider``` to use the policy.
 ```
  Gate::policy(Message::class, MessagePolicy::class);
  ```
- Vist Lumen Authorization Page for more info about [Policy](https://lumen.laravel.com/docs/5.4/authorization)
+ Visit Lumen Authorization Page for more info about [Policy](https://lumen.laravel.com/docs/5.4/authorization)
  
  ### Last Step: Create Controller
  
