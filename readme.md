@@ -63,7 +63,7 @@ php artisan passport:install
 | PUT      | /users/{user_id} | update | Update an user by id
 | DELETE      | /users/{user_id} | destroy | Delete an user by id
 
-Note: ```users/me``` route is for getting current authenticated user.
+Note: ```users/me``` is a special route for getting current authenticated user.
 
 
 ### Oauth2 Routes
