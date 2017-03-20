@@ -51,9 +51,9 @@ $app->singleton(
 // load cors configurations
 $app->configure('cors');
 
+class_alias(\Illuminate\Support\Facades\Mail::class, 'Mail');
 // mail configurations
 $app->configure('mail');
-class_alias(\Illuminate\Support\Facades\Mail::class, 'Mail');
 
 /*
 |--------------------------------------------------------------------------
