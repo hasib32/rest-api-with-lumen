@@ -202,6 +202,8 @@ namespace App\Providers;
 use Illuminate\Support\ServiceProvider;
 use App\Repositories\Contracts\UserRepository;
 use App\Repositories\EloquentUserRepository;
+use App\Repositories\Contracts\MessageRepository;
+use App\Repositories\EloquentMessageRepository;
 
 class RepositoriesServiceProvider extends ServiceProvider
 {
@@ -220,6 +222,7 @@ class RepositoriesServiceProvider extends ServiceProvider
     public function register()
     {
         $this->app->bind(UserRepository::class, EloquentUserRepository::class);
+        $this->app->bind(MessageRepository::class, EloquentMessageRepository::class);
     }
 
     /**
@@ -230,7 +233,8 @@ class RepositoriesServiceProvider extends ServiceProvider
     public function provides()
     {
         return [
-            UserRepository::class
+            UserRepository::class,
+            MessageRepository::class
         ];
     }
 }
