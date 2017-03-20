@@ -195,17 +195,45 @@ class EloquentMessageRepository extends AbstractEloquentRepository implements Me
 
 Next, update ```RepositoriesServiceProvider``` to bind the implementation
 ```
+<?php
+
+namespace App\Providers;
+
+use Illuminate\Support\ServiceProvider;
+use App\Repositories\Contracts\UserRepository;
+use App\Repositories\EloquentUserRepository;
+
+class RepositoriesServiceProvider extends ServiceProvider
+{
+    /**
+     * Indicates if loading of the provider is deferred.
+     *
+     * @var bool
+     */
+    protected $defer = true;
+
+    /**
+     * Register any application services.
+     *
+     * @return void
+     */
     public function register()
     {
-        $this->app->bind(MessageRepository::class, EloquentMessageRepository::class);
+        $this->app->bind(UserRepository::class, EloquentUserRepository::class);
     }
-    
-   public function provides()
+
+    /**
+     * Get the services provided by the provider.
+     *
+     * @return array
+     */
+    public function provides()
     {
         return [
-            MessageRepository::class,
+            UserRepository::class
         ];
     }
+}
 ```
 Visit Lumen documentation for more info about [Service Provider](https://lumen.laravel.com/docs/5.4/providers)
 
