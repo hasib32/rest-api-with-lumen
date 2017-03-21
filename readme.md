@@ -1,6 +1,5 @@
-[![Build Status](https://travis-ci.org/hasib32/rest-api-with-lumen.svg?branch=master)](https://travis-ci.org/hasib32/rest-api-with-lumen)
 
-# Rest API with Lumen 5.4
+# Rest API with Lumen 5.4 [![Build Status](https://travis-ci.org/hasib32/rest-api-with-lumen.svg?branch=master)](https://travis-ci.org/hasib32/rest-api-with-lumen)
 
 A RESTful API boilerplate for Lumen micro-framework. Features included:
 
