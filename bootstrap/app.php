@@ -53,7 +53,6 @@ $app->configure('cors');
 
 // mail configurations
 $app->configure('mail');
-class_alias('Illuminate\Support\Facades\Mail', 'mail');
 
 /*
 |--------------------------------------------------------------------------

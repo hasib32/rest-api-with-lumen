@@ -5,6 +5,7 @@ namespace App\Listeners;
 use Illuminate\Events\Dispatcher;
 use App\Events\UserEvents\UserCreatedEvent;
 use App\Mails\WelcomeEmail;
+use Illuminate\Support\Facades\Mail;
 
 class UserEventsListener
 {
@@ -18,7 +19,7 @@ class UserEventsListener
         $user = $event->user;
 
         //send welcome email to the user
-        \Mail::to($user)->send(new WelcomeEmail($user));
+        Mail::to($user)->send(new WelcomeEmail($user));
     }
 
     /**
