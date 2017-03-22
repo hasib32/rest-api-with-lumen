@@ -1,5 +1,7 @@
 language: php
 
+services:
+ - mysql
 php:
   - 7.1
 
@@ -8,6 +10,9 @@ before_script:
   - composer self-update
   - composer install --no-interaction
   - php artisan migrate
+
+before_install:
+  - mysql -e 'CREATE DATABASE travis;'
 
 script:
   - vendor/bin/phpunit
