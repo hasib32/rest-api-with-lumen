@@ -4,11 +4,11 @@ namespace Tests\Repositories;
 
 use App\Models\User;
 use App\Repositories\EloquentUserRepository;
-use Laravel\Lumen\Testing\DatabaseTransactions;
+use Laravel\Lumen\Testing\DatabaseMigrations;
 
 class EloquentUserRepositoryTest extends \TestCase
 {
-    use DatabaseTransactions;
+    use DatabaseMigrations;
 
     /**
      * @var EloquentUserRepository
