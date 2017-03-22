@@ -2,12 +2,12 @@ language: php
 
 php:
   - 7.1
-  - 5.6
 
 before_script:
   - cp .env.travis .env
   - composer self-update
   - composer install --no-interaction
+  - php artisan migrate
 
 script:
   - vendor/bin/phpunit
