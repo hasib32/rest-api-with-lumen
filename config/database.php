@@ -49,7 +49,7 @@ return [
         'testing' => [
             'driver'    => 'mysql',
             'host'      => env('DB_TEST_HOST', 'localhost'),
-            'database'  => env('DB_TEST_DATABASE', 'restapi_test'),
+            'database'  => env('DB_TEST_DATABASE', 'travis'),
             'username'  => env('DB_TEST_USERNAME', 'homestead'),
             'password'  => env('DB_PASSWORD', 'secret'),
             'charset'   => env('DB_CHARSET', 'utf8'),
