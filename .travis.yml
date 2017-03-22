@@ -7,7 +7,7 @@ php:
 
 before_script:
   - cp .env.travis .env
-  - mysql -e 'CREATE DATABASE restapi_test;'
+  - mysql -e 'CREATE DATABASE travis;'
   - composer self-update
   - composer install --no-interaction
   - php artisan migrate
