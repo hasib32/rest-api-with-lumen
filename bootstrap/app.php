@@ -51,8 +51,11 @@ $app->singleton(
 // load cors configurations
 $app->configure('cors');
 
-// mail configurations
+// load mail configurations
 $app->configure('mail');
+
+// load database configurations
+$app->configure('database');
 
 /*
 |--------------------------------------------------------------------------
