@@ -7,7 +7,7 @@ A RESTful API boilerplate for Lumen micro-framework. Features included:
 - OAuth2 Authentication using Laravel Passport
 - Scope based Authorization
 - Validation
-- Repository [Pattern](https://msdn.microsoft.com/en-us/library/ff649690.aspx)
+- [Repository Pattern](https://msdn.microsoft.com/en-us/library/ff649690.aspx)
 - API Response with [Fractal](http://fractal.thephpleague.com/)
 - Pagination
 - Seeding Database With Model Factory
