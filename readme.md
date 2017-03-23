@@ -14,6 +14,7 @@ A RESTful API boilerplate for Lumen micro-framework. Features included:
 - Event Handling
 - Sending Mail using Mailable class
 - [CORS](https://github.com/barryvdh/laravel-cors) Support
+- Endpoint Tests and Unit Tests
 
 ## Getting Started
 
