@@ -46,7 +46,8 @@ First, we need to create a database. For homestead user,
 # Login using default homestead username and password
 mysql -uhomestead -psecret
 mysql> CREATE DATABASE restapi;
-#create test database
+
+# Create test database
 mysql>  CREATE DATABASE restapi_test;
 
 # Run the Artisan migrate command with seed
