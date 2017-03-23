@@ -55,7 +55,7 @@ php artisan migrate --seed
 
 # Create "personal access" and "password grant" clients which will be used to generate access tokens. 
 php artisan passport:install
-# You can find those clients in "oauth_client" table
+# You can find those clients in "oauth_clients" table
 ```
 
 ### API Routes
