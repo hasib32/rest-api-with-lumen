@@ -15,6 +15,7 @@ A RESTful API boilerplate for Lumen micro-framework. Features included:
 - Sending Mail using Mailable class
 - [CORS](https://github.com/barryvdh/laravel-cors) Support
 - Endpoint Tests and Unit Tests
+- Build Process with (Travis CI)[https://travis-ci.org/]
 
 ## Getting Started
 
