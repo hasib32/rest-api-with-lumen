@@ -4,6 +4,7 @@ namespace Tests\Repositories;
 
 use App\Models\User;
 use App\Repositories\EloquentUserRepository;
+use Illuminate\Support\Facades\Auth;
 use Laravel\Lumen\Testing\DatabaseMigrations;
 
 class EloquentUserRepositoryTest extends \TestCase
@@ -67,13 +68,36 @@ class EloquentUserRepositoryTest extends \TestCase
 
     public function testFindBy()
     {
+        // when instantiate the repo, logged in as Admin user. So, that we can search any user
+        $adminUser = factory(User::class)->make(['role' => User::ADMIN_ROLE]);
+        Auth::shouldReceive('user')->andReturn($adminUser);
+        $eloquentUserRepository = new EloquentUserRepository();
+
         //get total users of this resource
         $totalUsers = User::all()->count();
 
         //first, check if it returns all users without criteria
-        $users = $this->eloquentUserRepository->findBy([]);
+        $users = $eloquentUserRepository->findBy([]);
         $this->assertCount($totalUsers, $users);
-        //@todo need to add more tests
+
+        //create a user and findBy that using user's firstName
+        factory(User::class)->create(['firstName' => 'Pappu']);
+        $users = $eloquentUserRepository->findBy(['firstName' => 'Pappu']);
+        $this->assertNotEmpty($users);
+
+        //check with multiple criteria
+        $searchCriteria = ['zipCode'     => '11121', 'username' => 'jobberAli'];
+        $previousTotalUsers = $eloquentUserRepository->findBy($searchCriteria)->count();
+        $this->assertEmpty($previousTotalUsers);
+
+        factory(User::class)->create($searchCriteria);
+        $newTotalUsers = $eloquentUserRepository->findBy($searchCriteria)->count();
+        $this->assertNotEmpty($newTotalUsers);
+
+        //with basic user's permission, create a user and findBy using that user's firstName
+        factory(User::class)->create(['firstName' => 'Jobber']);
+        $users = $this->eloquentUserRepository->findBy(['firstName' => 'Jobber']);
+        $this->assertEmpty($users);
     }
 
     public function testUpdate()
