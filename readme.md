@@ -1,5 +1,5 @@
 
-# Rest API with Lumen 5.4 [![Build Status](https://travis-ci.org/hasib32/rest-api-with-lumen.svg?branch=master)](https://travis-ci.org/hasib32/rest-api-with-lumen)
+# REST API with Lumen 5.4 [![Build Status](https://travis-ci.org/hasib32/rest-api-with-lumen.svg?branch=master)](https://travis-ci.org/hasib32/rest-api-with-lumen)
 
 A RESTful API boilerplate for Lumen micro-framework. Features included:
 
@@ -19,43 +19,53 @@ A RESTful API boilerplate for Lumen micro-framework. Features included:
 
 ## Getting Started
 First, clone the repo:
-```
-git clone git@github.com:hasib32/rest-api-with-lumen.git
+```bash
+$ git clone git@github.com:hasib32/rest-api-with-lumen.git
 ```
 
 #### Laravel Homestead
-You can use Laravel Homestead globally or per project for local development. Follow the [Installation Guide.](https://laravel.com/docs/5.4/homestead#installation-and-setup).
+You can use Laravel Homestead globally or per project for local development. Follow the [Installation Guide](https://laravel.com/docs/5.4/homestead#installation-and-setup).
 
 #### Install dependencies
 ```
-cd rest-api-with-lumen
-composer install
+$ cd rest-api-with-lumen
+$ composer install
 ```
 
 #### Configure the Environment
+Create `.env` file:
 ```
-# Create .env file 
-cat .env.example > .env
+$ cat .env.example > .env
 ```
 If you want you can edit database name, database username and database password.
 
 #### Migrations and Seed the database with fake data
-First, we need to create a database. For homestead user,
+First, we need connect to the database. For homestead user, login using default homestead username and password:
+```bash
+$ mysql -uhomestead -psecret
 ```
-# Login using default homestead username and password
-mysql -uhomestead -psecret
+
+Then create a database:
+```bash
 mysql> CREATE DATABASE restapi;
-
-# Create test database
-mysql>  CREATE DATABASE restapi_test;
-
-# Run the Artisan migrate command with seed
-php artisan migrate --seed
-
-# Create "personal access" and "password grant" clients which will be used to generate access tokens. 
-php artisan passport:install
-# You can find those clients in "oauth_clients" table
 ```
+
+And also create test database:
+```bash
+mysql> CREATE DATABASE restapi_test;
+```
+
+Run the Artisan migrate command with seed:
+```bash
+$ php artisan migrate --seed
+```
+
+Create "personal access" and "password grant" clients which will be used to generate access tokens:
+```bash
+$ php artisan passport:install
+```
+
+You can find those clients in "oauth_clients" table.
 
 ### API Routes
 | HTTP Method	| Path | Action | Desciption  |
