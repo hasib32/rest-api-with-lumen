@@ -6,6 +6,7 @@ use App\Models\User;
 use App\Repositories\EloquentUserRepository;
 use Illuminate\Support\Facades\Auth;
 use Laravel\Lumen\Testing\DatabaseMigrations;
+use Illuminate\Pagination\LengthAwarePaginator;
 
 class EloquentUserRepositoryTest extends \TestCase
 {
@@ -83,6 +84,8 @@ class EloquentUserRepositoryTest extends \TestCase
         //create a user and findBy that using user's firstName
         factory(User::class)->create(['firstName' => 'Pappu']);
         $users = $eloquentUserRepository->findBy(['firstName' => 'Pappu']);
+        //test instanceof
+        $this->assertInstanceOf(LengthAwarePaginator::class, $users);
         $this->assertNotEmpty($users);
 
         //check with multiple criteria
