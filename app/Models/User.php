@@ -45,7 +45,8 @@ class User extends Model implements AuthenticatableContract, AuthorizableContrac
         'phone',
         'mobile',
         'role',
-        'isActive'
+        'isActive',
+        'profileImage'
     ];
 
     /**

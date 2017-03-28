@@ -17,6 +17,7 @@ $factory->define(App\Models\User::class, function (Faker\Generator $faker) {
         'phone'                 => $faker->phoneNumber,
         'mobile'                => $faker->phoneNumber,
         'role'                  => \App\Models\User::BASIC_ROLE,
-        'isActive'              => rand(0,1)
+        'isActive'              => rand(0,1),
+        'profileImage'          => $faker->imageUrl('100')
     ];
 });

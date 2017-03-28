@@ -31,6 +31,7 @@ class CreateUsersTable extends Migration
             $table->string('country', '100')->nullable();
             $table->enum('role', ['BASIC_USER', 'ADMIN_USER'])->default('BASIC_USER');
             $table->tinyInteger('isActive');
+            $table->string('profileImage')->nullable();
             $table->timestamps();
             $table->softDeletes();
         });
