@@ -24,6 +24,7 @@ class UserTransformer extends TransformerAbstract
             'phone'                 => $user->phone,
             'mobile'                => $user->mobile,
             'role'                  => $user->role,
+            'profileImage'          => $user->profileImage,
             'createdAt'             => (string) $user->created_at,
             'updatedAt'             => (string) $user->updated_at
         ];
