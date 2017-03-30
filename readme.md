@@ -555,7 +555,7 @@ To see the step-by-step tutorial how I created this boilerplate please visit our
 Contributions, questions and comments are all welcome and encouraged. For code contributions submit a pull request.
 
 ## Credits
-[Fractal](http://fractal.thephpleague.com/), [Phil Sturgeon](https://github.com/philsturgeon)
+[Taylor Otwell](https://github.com/taylorotwell), [Fractal](http://fractal.thephpleague.com/), [Phil Sturgeon](https://github.com/philsturgeon)
 ## License
 
  [MIT license](http://opensource.org/licenses/MIT)
