@@ -74,6 +74,7 @@ $app->configure('database');
 
  $app->routeMiddleware([
      'auth' => App\Http\Middleware\Authenticate::class,
+     'throttle' => App\Http\Middleware\ThrottleRequests::class
  ]);
 
 /*
