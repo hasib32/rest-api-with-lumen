@@ -23,7 +23,7 @@ $app->get('appKey', function () {
 // route for creating access_token
 $app->post('accessToken', 'AccessTokenController@createAccessToken');
 
-$app->group(['middleware' => 'auth:api'], function () use ($app) {
+$app->group(['middleware' => ['auth:api', 'throttle:60']], function () use ($app) {
     $app->post('users', 'UserController@store');
     $app->get('users', 'UserController@index');
     $app->get('users/{id}', 'UserController@show');
