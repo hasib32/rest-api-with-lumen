@@ -5,6 +5,7 @@ namespace App\Http\Middleware;
 use Closure;
 use Illuminate\Http\Response;
 use Illuminate\Cache\RateLimiter;
+use Symfony\Component\HttpFoundation\JsonResponse;
 
 class ThrottleRequests
 {
@@ -82,7 +83,7 @@ class ThrottleRequests
      */
     protected function buildResponse($key, $maxAttempts)
     {
-        $response = new Response('Too Many Attempts.', 429);
+        $response = new JsonResponse(['status' => 429, 'message' => 'Too Many Attempts.'], 429);
 
         return $this->addHeaders(
             $response,
@@ -128,6 +129,6 @@ class ThrottleRequests
      */
     protected function calculateRemainingAttempts($key, $maxAttempts)
     {
-        return $maxAttempts - $this->limiter->retriesLeft($key, $maxAttempts);
+        return $this->limiter->retriesLeft($key, $maxAttempts);
     }
 }
