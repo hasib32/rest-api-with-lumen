@@ -14,6 +14,7 @@ A RESTful API boilerplate for Lumen micro-framework. Features included:
 - Event Handling
 - Sending Mail using Mailable class
 - [CORS](https://github.com/barryvdh/laravel-cors) Support
+- [Rate Limit API Requests](https://mattstauffer.co/blog/api-rate-limiting-in-laravel-5-2)
 - Endpoint Tests and Unit Tests
 - Build Process with [Travis CI](https://travis-ci.org/)
 
@@ -555,7 +556,7 @@ To see the step-by-step tutorial how I created this boilerplate please visit our
 Contributions, questions and comments are all welcome and encouraged. For code contributions submit a pull request.
 
 ## Credits
-[Taylor Otwell](https://github.com/taylorotwell), [Fractal](http://fractal.thephpleague.com/), [Phil Sturgeon](https://github.com/philsturgeon)
+[Taylor Otwell](https://github.com/taylorotwell), [Shahriar Mahmood](https://github.com/shahriar1), [Fractal](http://fractal.thephpleague.com/), [Phil Sturgeon](https://github.com/philsturgeon)
 ## License
 
  [MIT license](http://opensource.org/licenses/MIT)
