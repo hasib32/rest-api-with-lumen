@@ -20,7 +20,7 @@ class EloquentUserRepositoryTest extends \TestCase
     public function setup()
     {
         parent::setUp();
-        $this->eloquentUserRepository = new EloquentUserRepository();
+        $this->eloquentUserRepository = new EloquentUserRepository(new User());
     }
 
     public function testCreateUser()
@@ -72,7 +72,7 @@ class EloquentUserRepositoryTest extends \TestCase
         // when instantiate the repo, logged in as Admin user. So, that we can search any user
         $adminUser = factory(User::class)->make(['role' => User::ADMIN_ROLE]);
         Auth::shouldReceive('user')->andReturn($adminUser);
-        $eloquentUserRepository = new EloquentUserRepository();
+        $eloquentUserRepository = new EloquentUserRepository(new User());
 
         //get total users of this resource
         $totalUsers = User::all()->count();

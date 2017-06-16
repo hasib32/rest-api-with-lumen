@@ -238,8 +238,12 @@ class RepositoriesServiceProvider extends ServiceProvider
      */
     public function register()
     {
-        $this->app->bind(UserRepository::class, EloquentUserRepository::class);
-        $this->app->bind(MessageRepository::class, EloquentMessageRepository::class);
+        $this->app->bind(UserRepository::class, function () {
+            return new EloquentUserRepository(new User());
+        });
+        $this->app->bind(MessageRepository::class, function () {
+            return new EloquentMessageRepository(new Message());
+        });
     }
 
     /**
