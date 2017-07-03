@@ -13,7 +13,7 @@ class UsersTest extends \TestCase
     {
         // without authentication should give 401
         $this->call('GET', '/users');
-        $this->assertResponseStatus(401);
+        $this->assertResponseStatus(402);
 
         $user = factory(User::class)->create();
         $this->actingAs($user);
