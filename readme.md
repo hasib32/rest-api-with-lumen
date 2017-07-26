@@ -66,7 +66,7 @@ Create "personal access" and "password grant" clients which will be used to gene
 $ php artisan passport:install
 ```
 
-You can find those clients in "oauth_clients" table.
+You can find those clients in ```oauth_clients``` table.
 
 ### API Routes
 | HTTP Method	| Path | Action | Desciption  |
