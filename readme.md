@@ -72,7 +72,7 @@ You can find those clients in ```oauth_clients``` table.
 | HTTP Method	| Path | Action | Desciption  |
 | ----- | ----- | ----- | ------------- |
 | GET      | /users | index | Get all users
-| POST     | /user | store | Create an user
+| POST     | /users | store | Create an user
 | GET      | /users/{user_id} | show |  Fetch an user by id
 | PUT      | /users/{user_id} | update | Update an user by id
 | DELETE      | /users/{user_id} | destroy | Delete an user by id
