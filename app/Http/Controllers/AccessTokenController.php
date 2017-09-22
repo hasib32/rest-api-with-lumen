@@ -44,14 +44,9 @@ class AccessTokenController extends Controller
             $user = $this->userRepository->findOneBy(['email' => $inputs['username']]);
         }
 
-        if ($user instanceof User) {
-            // user with basic role can only request for basic scope
-            if ($user->role === User::BASIC_ROLE) {
-                $inputs['scope'] = 'basic';
-            }
-        } else {
-            // client_credentials grant can only request for basic scope
-            $inputs['scope'] = 'basic';
+        //Set default scope with full access
+        if (!isset($inputs['scope']) || empty($inputs['scope'])) {
+            $inputs['scope'] = "*";
         }
 
         $tokenRequest = $request->create('/oauth/token', 'post', $inputs);

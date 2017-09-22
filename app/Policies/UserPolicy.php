@@ -15,7 +15,8 @@ class UserPolicy
      */
     public function before(User $currentUser)
     {
-        if ($currentUser->tokenCan('admin')) {
+        //Add tokenCan without * scope. To be sure that basic scope is passed. Now check if * scope is passed with undefined scope
+        if ($currentUser->isAdmin() && (!$currentUser->tokenCan('basic') || $currentUser->tokenCan('undefined'))) {
             return true;
         }
     }

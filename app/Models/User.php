@@ -57,4 +57,12 @@ class User extends Model implements AuthenticatableContract, AuthorizableContrac
     protected $hidden = [
         'password',
     ];
+
+    /**
+     * @return bool
+     */
+    public function isAdmin()
+    {
+        return ($this->role ?? self::BASIC_ROLE) == self::ADMIN_ROLE;
+    }
 }

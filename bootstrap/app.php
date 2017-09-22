@@ -74,7 +74,9 @@ $app->configure('database');
 
  $app->routeMiddleware([
      'auth' => App\Http\Middleware\Authenticate::class,
-     'throttle' => App\Http\Middleware\ThrottleRequests::class
+     'throttle' => App\Http\Middleware\ThrottleRequests::class,
+     'scopes'   => \Laravel\Passport\Http\Middleware\CheckScopes::class,
+     'scope'    => \Laravel\Passport\Http\Middleware\CheckForAnyScope::class
  ]);
 
 /*
