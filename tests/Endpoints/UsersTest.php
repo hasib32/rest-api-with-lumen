@@ -3,6 +3,7 @@
 namespace Tests\Endpoints;
 use App\Models\User;
 use Laravel\Lumen\Testing\DatabaseMigrations;
+use Laravel\Passport\Token;
 
 
 class UsersTest extends \TestCase
@@ -16,6 +17,7 @@ class UsersTest extends \TestCase
         $this->assertResponseStatus(401);
 
         $user = factory(User::class)->create();
+        $user->withAccessToken(new Token(['scopes' => ['*']]));
         $this->actingAs($user);
 
         $this->call('GET', '/users');
@@ -35,6 +37,7 @@ class UsersTest extends \TestCase
         $user = factory(User::class)->create();
 
         // authenticate
+        $user->withAccessToken(new Token(['scopes' => ['*']]));
         $this->actingAs($user);
 
         // should work
@@ -56,6 +59,7 @@ class UsersTest extends \TestCase
         $this->assertResponseStatus(401);
 
         $user = factory(User::class)->make();
+        $user->withAccessToken(new Token(['scopes' => ['*']]));
         $this->actingAs($user);
 
         // empty data should give 400 invalid fields error
@@ -88,6 +92,7 @@ class UsersTest extends \TestCase
         $this->assertResponseStatus(401);
 
         // authenticate
+        $user->withAccessToken(new Token(['scopes' => ['*']]));
         $this->actingAs($user);
 
         $this->call('PUT', '/users/'.$user->uid, [
@@ -111,6 +116,7 @@ class UsersTest extends \TestCase
         $user = factory(User::class)->create();
 
         // authenticate
+        $user->withAccessToken(new Token(['scopes' => ['*']]));
         $this->actingAs($user);
 
         // should work

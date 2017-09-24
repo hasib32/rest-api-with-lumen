@@ -63,6 +63,6 @@ class User extends Model implements AuthenticatableContract, AuthorizableContrac
      */
     public function isAdmin()
     {
-        return ($this->role ?? self::BASIC_ROLE) == self::ADMIN_ROLE;
+        return (isset($this->role) ? $this->role : self::BASIC_ROLE) == self::ADMIN_ROLE;
     }
 }
