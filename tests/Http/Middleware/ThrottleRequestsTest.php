@@ -6,6 +6,7 @@ use App\Http\Middleware\ThrottleRequests;
 use App\Models\User;
 use Illuminate\Http\Request;
 use Laravel\Lumen\Testing\DatabaseMigrations;
+use Laravel\Passport\Token;
 
 
 class ThrottleRequestsTest extends \TestCase
@@ -49,6 +50,7 @@ class ThrottleRequestsTest extends \TestCase
         $user = factory(User::class)->create();
 
         // authenticate
+        $user->withAccessToken(new Token(['scopes' => ['*']]));
         $this->actingAs($user);
 
         for ($i = 1; $i <= 65 ; $i++) {

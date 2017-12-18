@@ -69,15 +69,16 @@ $ php artisan passport:install
 You can find those clients in ```oauth_clients``` table.
 
 ### API Routes
-| HTTP Method	| Path | Action | Desciption  |
-| ----- | ----- | ----- | ------------- |
-| GET      | /users | index | Get all users
-| POST     | /users | store | Create an user
-| GET      | /users/{user_id} | show |  Fetch an user by id
-| PUT      | /users/{user_id} | update | Update an user by id
-| DELETE      | /users/{user_id} | destroy | Delete an user by id
+| HTTP Method	| Path | Action | Scope | Desciption  |
+| ----- | ----- | ----- | ---- |------------- |
+| GET      | /users | index | users:list | Get all users
+| POST     | /users | store | users:create | Create an user
+| GET      | /users/{user_id} | show | users:read |  Fetch an user by id
+| PUT      | /users/{user_id} | update | users:write | Update an user by id
+| DELETE      | /users/{user_id} | destroy | users:delete | Delete an user by id
 
 Note: ```users/me``` is a special route for getting current authenticated user.
+And for all User routes 'users' scope is available if you want to perform all actions.
 
 ### OAuth2 Routes
 Visit [dusterio/lumen-passport](https://github.com/dusterio/lumen-passport/blob/master/README.md#installed-routes) to see all the available ```OAuth2``` routes.
@@ -96,11 +97,26 @@ Creating a new resource is very easy and straight-forward. Follow these simple s
 Create a new route name ```messages```. Open the ```routes/web.php``` file and add the following code:
 
 ```php
-$app->post('messages', 'MessageController@store');
-$app->get('messages', 'MessageController@index');
-$app->get('messages/{id}', 'MessageController@show');
-$app->put('messages/{id}', 'MessageController@update');
-$app->delete('messages/{id}', 'MessageController@destroy');
+$app->post('messages', [
+    'uses'       => 'MessageController@store',
+    'middleware' => "scope:messages,messages:create"
+]);
+$app->get('messages',  [
+    'uses'       => 'MessageController@index',
+    'middleware' => "scope:messages,messages:list"
+]);
+$app->get('messages/{id}', [
+    'uses'       => 'MessageController@show',
+    'middleware' => "scope:messages,messages:read"
+]);
+$app->put('messages/{id}', [
+    'uses'       => 'MessageController@update',
+    'middleware' => "scope:messages,messages:write"
+]);
+$app->delete('messages/{id}', [
+    'uses'       => 'MessageController@destroy',
+    'middleware' => "scope:messages,messages:delete"
+]);
 ```
 
 For more info please visit Lumen [Routing](https://lumen.laravel.com/docs/5.4/routing) page.
@@ -316,7 +332,7 @@ class MessagePolicy
      */
     public function before(User $currentUser)
     {
-        if ($currentUser->tokenCan('admin')) {
+        if ($currentUser->isAdmin() && (!$currentUser->tokenCan('basic') || $currentUser->tokenCan('undefined'))) {
             return true;
         }
     }
@@ -361,6 +377,17 @@ class MessagePolicy
 Next, update ```AuthServiceProvider``` to use the policy:
 ```
 Gate::policy(Message::class, MessagePolicy::class);
+```
+And add scopes to ``Passport::tokensCan``:
+```
+[
+    'messages' => 'Messages scope',
+    'messages:list' => 'Messages scope',
+    'messages:read' => 'Messages scope for reading records',
+    'messages:write' => 'Messages scope for writing records',
+    'messages:create' => 'Messages scope for creating records',
+    'messages:delete' => 'Messages scope for deleting records'
+]
 ```
 Visit Lumen [Authorization Page](https://lumen.laravel.com/docs/5.4/authorization) for more info about Policy.
 

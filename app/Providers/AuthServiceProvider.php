@@ -41,6 +41,12 @@ class AuthServiceProvider extends ServiceProvider
         Passport::tokensCan([
             'admin' => 'Admin user scope',
             'basic' => 'Basic user scope',
+            'users' => 'Users scope',
+            'users:list' => 'Users scope',
+            'users:read' => 'Users scope for reading records',
+            'users:write' => 'Users scope for writing records',
+            'users:create' => 'Users scope for creating records',
+            'users:delete' => 'Users scope for deleting records',
         ]);
 
         //Register all policies here
