@@ -282,7 +282,7 @@ Visit Lumen documentation for more info about [Service Provider](https://lumen.l
 ### Step 4: Create Fractal Transformer
 Fractal provides a presentation and transformation layer for complex data output, the like found in RESTful APIs, and works really well with JSON. Think of this as a view layer for your JSON/YAML/etc.
 
-Create a new Transformer name ```MessageTransformer``` inside ```app/Transformers``` direcotry:
+Create a new Transformer name ```MessageTransformer``` inside ```app/Transformers``` directory:
 
 ```php
 <?php
