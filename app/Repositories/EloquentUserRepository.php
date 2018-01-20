@@ -10,13 +10,6 @@ use App\Events\UserEvents\UserCreatedEvent;
 
 class EloquentUserRepository extends AbstractEloquentRepository implements UserRepository
 {
-    /**
-     * Model name
-     *
-     * @var string
-     */
-    protected $modelName = User::class;
-
 
     /*
      * @inheritdoc

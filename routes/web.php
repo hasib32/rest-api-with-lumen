@@ -23,11 +23,26 @@ $app->get('appKey', function () {
 // route for creating access_token
 $app->post('accessToken', 'AccessTokenController@createAccessToken');
 
-$app->group(['middleware' => 'auth:api'], function () use ($app) {
-    $app->post('users', 'UserController@store');
-    $app->get('users', 'UserController@index');
-    $app->get('users/{id}', 'UserController@show');
-    $app->put('users/{id}', 'UserController@update');
-    $app->delete('users/{id}', 'UserController@destroy');
+$app->group(['middleware' => ['auth:api', 'throttle:60']], function () use ($app) {
+    $app->post('users', [
+        'uses'       => 'UserController@store',
+        'middleware' => "scope:users,users:create"
+    ]);
+    $app->get('users',  [
+        'uses'       => 'UserController@index',
+        'middleware' => "scope:users,users:list"
+    ]);
+    $app->get('users/{id}', [
+        'uses'       => 'UserController@show',
+        'middleware' => "scope:users,users:read"
+    ]);
+    $app->put('users/{id}', [
+        'uses'       => 'UserController@update',
+        'middleware' => "scope:users,users:write"
+    ]);
+    $app->delete('users/{id}', [
+        'uses'       => 'UserController@destroy',
+        'middleware' => "scope:users,users:delete"
+    ]);
 });
 

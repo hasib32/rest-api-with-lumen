@@ -1,9 +1,9 @@
 
-# Rest API with Lumen 5.4 [![Build Status](https://travis-ci.org/hasib32/rest-api-with-lumen.svg?branch=master)](https://travis-ci.org/hasib32/rest-api-with-lumen)
+# REST API with Lumen 5.4 [![Build Status](https://travis-ci.org/hasib32/rest-api-with-lumen.svg?branch=master)](https://travis-ci.org/hasib32/rest-api-with-lumen)
 
 A RESTful API boilerplate for Lumen micro-framework. Features included:
 
-- users Resource
+- Users Resource
 - OAuth2 Authentication using Laravel Passport
 - Scope based Authorization
 - Validation
@@ -14,66 +14,74 @@ A RESTful API boilerplate for Lumen micro-framework. Features included:
 - Event Handling
 - Sending Mail using Mailable class
 - [CORS](https://github.com/barryvdh/laravel-cors) Support
+- [Rate Limit API Requests](https://mattstauffer.co/blog/api-rate-limiting-in-laravel-5-2)
 - Endpoint Tests and Unit Tests
 - Build Process with [Travis CI](https://travis-ci.org/)
 
 ## Getting Started
-
-First, clone the repo
-```
-git clone git@github.com:hasib32/rest-api-with-lumen.git
+First, clone the repo:
+```bash
+$ git clone git@github.com:hasib32/rest-api-with-lumen.git
 ```
 
 #### Laravel Homestead
-You can use Laravel Homestead globally or per project for local development. Follow the [Installation Guide.](https://laravel.com/docs/5.4/homestead#installation-and-setup)
+You can use Laravel Homestead globally or per project for local development. Follow the [Installation Guide](https://laravel.com/docs/5.4/homestead#installation-and-setup).
 
 #### Install dependencies
+```
+$ cd rest-api-with-lumen
+$ composer install
+```
 
-```
-cd rest-api-with-lumen
-composer install
-```
 #### Configure the Environment
+Create `.env` file:
 ```
-# Create .env file 
-cat .env.example > .env
+$ cat .env.example > .env
 ```
 If you want you can edit database name, database username and database password.
 
 #### Migrations and Seed the database with fake data
-
-First, we need to create a database. For homestead user,
+First, we need connect to the database. For homestead user, login using default homestead username and password:
+```bash
+$ mysql -uhomestead -psecret
 ```
-# Login using default homestead username and password
-mysql -uhomestead -psecret
+
+Then create a database:
+```bash
 mysql> CREATE DATABASE restapi;
-
-# Create test database
-mysql>  CREATE DATABASE restapi_test;
-
-# Run the Artisan migrate command with seed
-php artisan migrate --seed
-
-# Create "personal access" and "password grant" clients which will be used to generate access tokens. 
-php artisan passport:install
-# You can find those clients in "oauth_clients" table
 ```
+
+And also create test database:
+```bash
+mysql> CREATE DATABASE restapi_test;
+```
+
+Run the Artisan migrate command with seed:
+```bash
+$ php artisan migrate --seed
+```
+
+Create "personal access" and "password grant" clients which will be used to generate access tokens:
+```bash
+$ php artisan passport:install
+```
+
+You can find those clients in ```oauth_clients``` table.
 
 ### API Routes
-
-| HTTP Method	| Path | Action | Desciption  |
-| ----- | ----- | ----- | ------------- |
-| GET      | /users | index | Get all users
-| POST     | /user | store | Create an user
-| GET      | /users/{user_id} | show |  Fetch an user by id
-| PUT      | /users/{user_id} | update | Update an user by id
-| DELETE      | /users/{user_id} | destroy | Delete an user by id
+| HTTP Method	| Path | Action | Scope | Desciption  |
+| ----- | ----- | ----- | ---- |------------- |
+| GET      | /users | index | users:list | Get all users
+| POST     | /users | store | users:create | Create an user
+| GET      | /users/{user_id} | show | users:read |  Fetch an user by id
+| PUT      | /users/{user_id} | update | users:write | Update an user by id
+| DELETE      | /users/{user_id} | destroy | users:delete | Delete an user by id
 
 Note: ```users/me``` is a special route for getting current authenticated user.
+And for all User routes 'users' scope is available if you want to perform all actions.
 
-
-### Oauth2 Routes
-Visit [dusterio/lumen-passport](https://github.com/dusterio/lumen-passport/blob/master/README.md#installed-routes) to see all the available ```Oauth2``` routes.
+### OAuth2 Routes
+Visit [dusterio/lumen-passport](https://github.com/dusterio/lumen-passport/blob/master/README.md#installed-routes) to see all the available ```OAuth2``` routes.
 
 ### Creating access_token
 Since Laravel Passport doesn't restrict any user creating any valid scope. I had to create a route and controller to restrict user creating access token only with permitted scopes. For creating access_token we have to use the ```accessToken``` route. Here is an example of creating access_token for grant_type password with [Postman.](https://www.getpostman.com/)
@@ -85,24 +93,40 @@ http://stackoverflow.com/questions/39436509/laravel-passport-scopes
 ## Creating a New Resource
 Creating a new resource is very easy and straight-forward. Follow these simple steps to create a new resource.
 
-### Step1: Create Route
-Create a new route name ```messages```. Edit the ```routes/web.php``` file.
+### Step 1: Create Route
+Create a new route name ```messages```. Open the ```routes/web.php``` file and add the following code:
 
+```php
+$app->post('messages', [
+    'uses'       => 'MessageController@store',
+    'middleware' => "scope:messages,messages:create"
+]);
+$app->get('messages',  [
+    'uses'       => 'MessageController@index',
+    'middleware' => "scope:messages,messages:list"
+]);
+$app->get('messages/{id}', [
+    'uses'       => 'MessageController@show',
+    'middleware' => "scope:messages,messages:read"
+]);
+$app->put('messages/{id}', [
+    'uses'       => 'MessageController@update',
+    'middleware' => "scope:messages,messages:write"
+]);
+$app->delete('messages/{id}', [
+    'uses'       => 'MessageController@destroy',
+    'middleware' => "scope:messages,messages:delete"
+]);
 ```
-    $app->post('messages', 'MessageController@store');
-    $app->get('messages', 'MessageController@index');
-    $app->get('messages/{id}', 'MessageController@show');
-    $app->put('messages/{id}', 'MessageController@update');
-    $app->delete('messages/{id}', 'MessageController@destroy');
-```
-For more info please visit Lumen [Routing](https://lumen.laravel.com/docs/5.4/routing) page
 
-### Step2: Create Model and Migration for the Table
+For more info please visit Lumen [Routing](https://lumen.laravel.com/docs/5.4/routing) page.
+
+### Step 2: Create Model and Migration for the Table
 Create ```Message``` Model inside ```App/Models``` directory and create migration using Lumen Artisan command.
 
 **Message Model**
 
-```
+```php
 <?php
 
 namespace App\Models;
@@ -127,21 +151,21 @@ class Message extends Model
         'uid',
         'userId',
         'subject',
-        'message'
+        'message',
     ];
 }
 ```
 
-Visit Laravel [Eloquent](https://laravel.com/docs/5.4/eloquent) Page for more info about Model
-
+Visit Laravel [Eloquent](https://laravel.com/docs/5.4/eloquent) Page for more info about Model.
 
 **Create migration for messages table**
-```
+
+```bash
 php artisan make:migration create_messages_table --create=messages
 ```
 **Migration file**
 
-```
+```php
 class CreateMessagesTable extends Migration
 {
     public function up()
@@ -158,18 +182,19 @@ class CreateMessagesTable extends Migration
                 ->references('id')->on('users')
                 ->onDelete('cascade')
                 ->onUpdate('cascade');
- 
         });
     }
 }
 ```
+
 For more info visit Laravel [Migration](https://laravel.com/docs/5.4/migrations) page.
 
-### Step3: Create Repository
+### Step 3: Create Repository
 Create ```MessageRepository``` and implementation of the repository name ```EloquentMessageRepository```.
 
 **MessageRepository**
-```
+
+```php
 <?php
 
 namespace App\Repositories\Contracts;
@@ -180,7 +205,8 @@ interface MessageRepository extends BaseRepository
 ```
 
 **EloquentMessageRepository**
-```
+
+```php
 <?php
 
 namespace App\Repositories;
@@ -191,7 +217,7 @@ use App\Repositories\Contracts\MessageRepository;
 class EloquentMessageRepository extends AbstractEloquentRepository implements MessageRepository
 {
     /**
-     * Model name
+     * Model name.
      *
      * @var string
      */
@@ -199,8 +225,9 @@ class EloquentMessageRepository extends AbstractEloquentRepository implements Me
 }
 ```
 
-Next, update ```RepositoriesServiceProvider``` to bind the implementation
-```
+Next, update ```RepositoriesServiceProvider``` to bind the implementation:
+
+```php
 <?php
 
 namespace App\Providers;
@@ -227,8 +254,12 @@ class RepositoriesServiceProvider extends ServiceProvider
      */
     public function register()
     {
-        $this->app->bind(UserRepository::class, EloquentUserRepository::class);
-        $this->app->bind(MessageRepository::class, EloquentMessageRepository::class);
+        $this->app->bind(UserRepository::class, function () {
+            return new EloquentUserRepository(new User());
+        });
+        $this->app->bind(MessageRepository::class, function () {
+            return new EloquentMessageRepository(new Message());
+        });
     }
 
     /**
@@ -240,19 +271,20 @@ class RepositoriesServiceProvider extends ServiceProvider
     {
         return [
             UserRepository::class,
-            MessageRepository::class
+            MessageRepository::class,
         ];
     }
 }
 ```
-Visit Lumen documentation for more info about [Service Provider](https://lumen.laravel.com/docs/5.4/providers)
 
-### Step4: Create Fractal Transformer
+Visit Lumen documentation for more info about [Service Provider](https://lumen.laravel.com/docs/5.4/providers).
+
+### Step 4: Create Fractal Transformer
 Fractal provides a presentation and transformation layer for complex data output, the like found in RESTful APIs, and works really well with JSON. Think of this as a view layer for your JSON/YAML/etc.
 
-Create a new Transformer name ```MessageTransformer``` inside ```app/Transformers``` direcotry.
+Create a new Transformer name ```MessageTransformer``` inside ```app/Transformers``` directory:
 
-```
+```php
 <?php
 
 namespace App\Transformers;
@@ -270,18 +302,19 @@ class MessageTransformer extends TransformerAbstract
             'subject'   => $message->subject,
             'message'   => $message->message,
             'createdAt' => (string) $message->created_at,
-            'updatedAt' => (string) $message->updated_at
+            'updatedAt' => (string) $message->updated_at,
         ];
     }
 }
 ```
 Visit [Fractal](http://fractal.thephpleague.com/) official page for more information.
 
-### Step5: Create Policy
+### Step 5: Create Policy
 For authorization we need to create policy that way basic user can't show or edit other user messages.
 
-MessagePolicy
-```
+**MessagePolicy**
+
+```php
 <?php
 
 namespace App\Policies;
@@ -291,68 +324,79 @@ use App\Models\Message;
 
 class MessagePolicy
 {
-
     /**
-     * Intercept checks
+     * Intercept checks.
      *
      * @param User $currentUser
      * @return bool
      */
     public function before(User $currentUser)
     {
-        if ($currentUser->tokenCan('admin')) {
+        if ($currentUser->isAdmin() && (!$currentUser->tokenCan('basic') || $currentUser->tokenCan('undefined'))) {
             return true;
         }
     }
 
     /**
-     * Determine if a given user has permission to show
+     * Determine if a given user has permission to show.
      *
      * @param User $currentUser
      * @param Message $message
      * @return bool
      */
-    public function show(User $currentUser,  Message $message)
+    public function show(User $currentUser, Message $message)
     {
         return $currentUser->id === $message->userId;
     }
 
     /**
-     * Determine if a given user can update
+     * Determine if a given user can update.
      *
      * @param User $currentUser
      * @param Message $message
      * @return bool
      */
-    public function update(User $currentUser,  Message $message)
+    public function update(User $currentUser, Message $message)
     {
         return $currentUser->id === $message->userId;
     }
 
     /**
-     * Determine if a given user can delete
+     * Determine if a given user can delete.
      *
      * @param User $currentUser
      * @param Message $message
      * @return bool
      */
-    public function destroy(User $currentUser,  Message $message)
+    public function destroy(User $currentUser, Message $message)
     {
         return $currentUser->id === $message->userId;
     }
 }
 ```
-Next, update ```AuthServiceProvider``` to use the policy.
+Next, update ```AuthServiceProvider``` to use the policy:
 ```
- Gate::policy(Message::class, MessagePolicy::class);
- ```
- Visit Lumen Authorization Page for more info about [Policy](https://lumen.laravel.com/docs/5.4/authorization)
+Gate::policy(Message::class, MessagePolicy::class);
+```
+And add scopes to ``Passport::tokensCan``:
+```
+[
+    'messages' => 'Messages scope',
+    'messages:list' => 'Messages scope',
+    'messages:read' => 'Messages scope for reading records',
+    'messages:write' => 'Messages scope for writing records',
+    'messages:create' => 'Messages scope for creating records',
+    'messages:delete' => 'Messages scope for deleting records'
+]
+```
+Visit Lumen [Authorization Page](https://lumen.laravel.com/docs/5.4/authorization) for more info about Policy.
+
+### Last Step: Create Controller
  
- ### Last Step: Create Controller
- 
- Finally, let's create the ```MessageController```. Here we're using **MessageRepository, MessageTransformer and MessagePolicy**.
- ```
- <?php
+Finally, let's create the ```MessageController```. Here we're using **MessageRepository, MessageTransformer and MessagePolicy**.
+
+```php
+<?php
 
 namespace App\Http\Controllers;
 
@@ -364,21 +408,21 @@ use App\Transformers\MessageTransformer;
 class MessageController extends Controller
 {
     /**
-     * Instance of MessageRepository
+     * Instance of MessageRepository.
      *
      * @var MessageRepository
      */
     private $messageRepository;
 
     /**
-     * Instanceof MessageTransformer
+     * Instanceof MessageTransformer.
      *
      * @var MessageTransformer
      */
     private $messageTransformer;
 
     /**
-     * Constructor
+     * Constructor.
      *
      * @param MessageRepository $messageRepository
      * @param MessageTransformer $messageTransformer
@@ -514,7 +558,7 @@ class MessageController extends Controller
        return [
            'userId'     => 'required|exists:users,id',
            'subject'    => 'required',
-           'message'    => 'required'
+           'message'    => 'required',
         ];
     }
 
@@ -528,20 +572,22 @@ class MessageController extends Controller
     {
         return [
             'subject'    => '',
-            'message'    => ''
+            'message'    => '',
         ];
     }
 }
 ```
+
 Visit Lumen [Controller](https://lumen.laravel.com/docs/5.4/controllers) page for more info about Controller.
 
 ## Tutorial
-To see the step-by-step tutorial how I created this boilerplate please visit our blog [devnootes.net](https://devnotes.net/rest-api-development-with-lumen-part-one/)
+To see the step-by-step tutorial how I created this boilerplate please visit our blog [devnootes.net](https://devnotes.net/rest-api-development-with-lumen-part-one/).
+
 ## Contributing
 Contributions, questions and comments are all welcome and encouraged. For code contributions submit a pull request.
 
 ## Credits
-[Fractal](http://fractal.thephpleague.com/), [Phil Sturgeon](https://github.com/philsturgeon)
+[Taylor Otwell](https://github.com/taylorotwell), [Shahriar Mahmood](https://github.com/shahriar1), [Fractal](http://fractal.thephpleague.com/), [Phil Sturgeon](https://github.com/philsturgeon)
 ## License
 
  [MIT license](http://opensource.org/licenses/MIT)

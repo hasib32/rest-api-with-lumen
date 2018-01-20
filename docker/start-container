@@ -1,0 +1,5 @@
+#!/usr/bin/env bash
+
+sed -i "s/xdebug\.remote_host\=.*/xdebug\.remote_host\=$XDEBUG_HOST/g" /etc/php/7.1/mods-available/xdebug.ini
+
+/usr/bin/supervisord

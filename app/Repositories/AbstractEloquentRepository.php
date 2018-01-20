@@ -33,31 +33,10 @@ abstract class AbstractEloquentRepository implements BaseRepository
     /**
      * Constructor
      */
-    public function __construct()
+    public function __construct(Model $model)
     {
-        $this->setModel();
+        $this->model = $model;
         $this->loggedInUser = $this->getLoggedInUser();
-    }
-
-    /**
-     * Instantiate Model
-     *
-     * @throws \Exception
-     */
-    public function setModel()
-    {
-        //check if the class exists
-        if (class_exists($this->modelName)) {
-            $this->model = new $this->modelName;
-
-            //check object is a instanceof Illuminate\Database\Eloquent\Model
-            if (!$this->model instanceof Model) {
-                throw new \Exception("{$this->modelName} must be an instance of Illuminate\Database\Eloquent\Model");
-            }
-
-        } else {
-            throw new \Exception('No model name defined');
-        }
     }
 
     /**
