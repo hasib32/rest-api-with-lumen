@@ -39,11 +39,6 @@ class AccessTokenController extends Controller
     {
         $inputs = $request->all();
 
-        $user = null;
-        if (isset($inputs['username']) && $inputs['grant_type'] == 'password') {
-            $user = $this->userRepository->findOneBy(['email' => $inputs['username']]);
-        }
-
         //Set default scope with full access
         if (!isset($inputs['scope']) || empty($inputs['scope'])) {
             $inputs['scope'] = "*";

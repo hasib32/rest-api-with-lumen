@@ -15,7 +15,7 @@ use Symfony\Component\Console\Output\ConsoleOutput;
 |
 */
 
-$app = require __DIR__.'/bootstrap/app.php';
+$router = require __DIR__.'/bootstrap/app.php';
 
 /*
 |--------------------------------------------------------------------------
@@ -28,7 +28,7 @@ $app = require __DIR__.'/bootstrap/app.php';
 |
 */
 
-$kernel = $app->make(
+$kernel = $router->make(
     'Illuminate\Contracts\Console\Kernel'
 );
 
