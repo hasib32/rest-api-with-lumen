@@ -5,3 +5,4 @@ Homestead.yaml
 /vendor/
 /.idea/
 /storage/*.key
+composer.lock

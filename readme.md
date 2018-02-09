@@ -1,5 +1,5 @@
 
-# REST API with Lumen 5.4 [![Build Status](https://travis-ci.org/hasib32/rest-api-with-lumen.svg?branch=master)](https://travis-ci.org/hasib32/rest-api-with-lumen)
+# REST API with Lumen 5.5 [![Build Status](https://travis-ci.org/hasib32/rest-api-with-lumen.svg?branch=master)](https://travis-ci.org/hasib32/rest-api-with-lumen)
 
 A RESTful API boilerplate for Lumen micro-framework. Features included:
 
@@ -25,7 +25,7 @@ $ git clone git@github.com:hasib32/rest-api-with-lumen.git
 ```
 
 #### Laravel Homestead
-You can use Laravel Homestead globally or per project for local development. Follow the [Installation Guide](https://laravel.com/docs/5.4/homestead#installation-and-setup).
+You can use Laravel Homestead globally or per project for local development. Follow the [Installation Guide](https://laravel.com/docs/5.5/homestead#installation-and-setup).
 
 #### Install dependencies
 ```
@@ -97,29 +97,29 @@ Creating a new resource is very easy and straight-forward. Follow these simple s
 Create a new route name ```messages```. Open the ```routes/web.php``` file and add the following code:
 
 ```php
-$app->post('messages', [
+$route->post('messages', [
     'uses'       => 'MessageController@store',
     'middleware' => "scope:messages,messages:create"
 ]);
-$app->get('messages',  [
+$route->get('messages',  [
     'uses'       => 'MessageController@index',
     'middleware' => "scope:messages,messages:list"
 ]);
-$app->get('messages/{id}', [
+$route->get('messages/{id}', [
     'uses'       => 'MessageController@show',
     'middleware' => "scope:messages,messages:read"
 ]);
-$app->put('messages/{id}', [
+$route->put('messages/{id}', [
     'uses'       => 'MessageController@update',
     'middleware' => "scope:messages,messages:write"
 ]);
-$app->delete('messages/{id}', [
+$route->delete('messages/{id}', [
     'uses'       => 'MessageController@destroy',
     'middleware' => "scope:messages,messages:delete"
 ]);
 ```
 
-For more info please visit Lumen [Routing](https://lumen.laravel.com/docs/5.4/routing) page.
+For more info please visit Lumen [Routing](https://lumen.laravel.com/docs/5.5/routing) page.
 
 ### Step 2: Create Model and Migration for the Table
 Create ```Message``` Model inside ```App/Models``` directory and create migration using Lumen Artisan command.
@@ -156,7 +156,7 @@ class Message extends Model
 }
 ```
 
-Visit Laravel [Eloquent](https://laravel.com/docs/5.4/eloquent) Page for more info about Model.
+Visit Laravel [Eloquent](https://laravel.com/docs/5.5/eloquent) Page for more info about Model.
 
 **Create migration for messages table**
 
@@ -187,7 +187,7 @@ class CreateMessagesTable extends Migration
 }
 ```
 
-For more info visit Laravel [Migration](https://laravel.com/docs/5.4/migrations) page.
+For more info visit Laravel [Migration](https://laravel.com/docs/5.5/migrations) page.
 
 ### Step 3: Create Repository
 Create ```MessageRepository``` and implementation of the repository name ```EloquentMessageRepository```.
@@ -277,7 +277,7 @@ class RepositoriesServiceProvider extends ServiceProvider
 }
 ```
 
-Visit Lumen documentation for more info about [Service Provider](https://lumen.laravel.com/docs/5.4/providers).
+Visit Lumen documentation for more info about [Service Provider](https://lumen.laravel.com/docs/5.5/providers).
 
 ### Step 4: Create Fractal Transformer
 Fractal provides a presentation and transformation layer for complex data output, the like found in RESTful APIs, and works really well with JSON. Think of this as a view layer for your JSON/YAML/etc.
@@ -389,7 +389,7 @@ And add scopes to ``Passport::tokensCan``:
     'messages:delete' => 'Messages scope for deleting records'
 ]
 ```
-Visit Lumen [Authorization Page](https://lumen.laravel.com/docs/5.4/authorization) for more info about Policy.
+Visit Lumen [Authorization Page](https://lumen.laravel.com/docs/5.5/authorization) for more info about Policy.
 
 ### Last Step: Create Controller
  
@@ -578,7 +578,7 @@ class MessageController extends Controller
 }
 ```
 
-Visit Lumen [Controller](https://lumen.laravel.com/docs/5.4/controllers) page for more info about Controller.
+Visit Lumen [Controller](https://lumen.laravel.com/docs/5.5/controllers) page for more info about Controller.
 
 ## Tutorial
 To see the step-by-step tutorial how I created this boilerplate please visit our blog [devnootes.net](https://devnotes.net/rest-api-development-with-lumen-part-one/).
